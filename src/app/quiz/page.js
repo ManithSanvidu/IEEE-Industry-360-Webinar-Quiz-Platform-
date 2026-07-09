@@ -15,6 +15,7 @@ export default function Quiz() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [notStarted, setNotStarted] = useState(false);
   const [result, setResult] = useState(null);
   const timerRef = useRef(null);
   const answersRef = useRef({});
@@ -67,6 +68,13 @@ export default function Quiz() {
 
         const quizRes = await fetch('/api/quiz');
         const quizData = await quizRes.json();
+        
+        if (quizData.notStarted) {
+          setNotStarted(true);
+          setLoading(false);
+          return;
+        }
+
         if (quizData.completed) {
           setQuizCompleted(true);
           setResult({ score: quizData.score, timeTaken: quizData.timeTaken, totalQuestions: 10 });
@@ -95,6 +103,19 @@ export default function Quiz() {
     };
     loadQuiz();
   }, [router, doSubmit]);
+
+  // Auto-polling when notStarted
+  useEffect(() => {
+    if (!notStarted) return;
+    const interval = setInterval(() => {
+      fetch('/api/quiz').then(r => r.json()).then(d => {
+        if (!d.notStarted && !d.error) {
+          window.location.reload();
+        }
+      }).catch(() => {});
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [notStarted]);
 
   // Timer
   useEffect(() => {
@@ -126,6 +147,43 @@ export default function Quiz() {
     return (
       <><DragonBackground /><Navbar />
         <div className="page-container"><div className="dragon-icon" style={{ fontSize: '4rem' }}>⌛</div><p style={{ marginTop: '1rem' }}>Loading quiz...</p></div>
+      </>
+    );
+  }
+
+  if (notStarted) {
+    return (
+      <>
+        <DragonBackground />
+        <Navbar />
+        <div className="page-container">
+          <div className="glass-card result-card" style={{ zIndex: 1, textAlign: 'center' }}>
+            <div style={{ fontSize: '5rem', marginBottom: '1rem' }}>⏳</div>
+            <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '1rem' }}>
+              <span className="fire-text">Hold Tight!</span>
+            </h1>
+            <p style={{ fontSize: '1.15rem', color: 'var(--sky-mist)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+              Waiting for the Admin to start the quiz...
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              <div className="loading-spinner"></div>
+            </div>
+            <p style={{ color: 'rgba(220,231,245,0.5)', fontSize: '0.85rem' }}>
+              This page will automatically refresh once the quiz begins.
+            </p>
+          </div>
+        </div>
+        <style dangerouslySetInnerHTML={{__html: `
+          .loading-spinner {
+            border: 4px solid rgba(249,115,22,0.2);
+            border-top: 4px solid var(--fire-orange);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+          }
+          @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        `}} />
       </>
     );
   }
