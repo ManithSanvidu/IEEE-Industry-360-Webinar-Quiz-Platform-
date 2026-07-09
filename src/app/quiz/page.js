@@ -149,12 +149,12 @@ export default function Quiz() {
               padding: '1.5rem',
               marginBottom: '1.5rem'
             }}>
-              <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>🏆</div>
+              <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>📢</div>
               <p style={{ color: 'var(--dragon-gold)', fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.5rem' }}>
-                Winner will be announced soon!
+                Thank you for submitting , results will be published in whatsapp channel.
               </p>
               <p style={{ color: 'rgba(220,231,245,0.6)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                The results are being reviewed. The winner will be declared based on the highest score and fastest completion time. Stay tuned!
+                The winner will be declared based on the highest score and fastest completion time.
               </p>
             </div>
             <p style={{ color: 'rgba(220,231,245,0.5)', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
