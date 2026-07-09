@@ -3,6 +3,8 @@ import sql, { ensureDbInitialized } from '@/lib/db';
 import { getUserFromRequest } from '@/lib/auth';
 import { getClientQuestions } from '@/lib/questions';
 
+export const dynamic = 'force-dynamic';
+
 // GET - Start quiz / get questions
 export async function GET(request) {
   try {
@@ -10,6 +12,18 @@ export async function GET(request) {
     const user = getUserFromRequest(request);
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Check global quiz active status
+    const setting = await sql`SELECT value FROM settings WHERE key = 'is_quiz_active'`;
+    const isActive = setting.length > 0 && setting[0].value === 'true';
+
+    // Admins can always access the quiz for testing, regular users are blocked if not active
+    if (!isActive && !user.is_admin) {
+      return NextResponse.json({ 
+        notStarted: true, 
+        error: 'The admin has not started the quiz yet. Please wait.' 
+      }, { status: 403 });
     }
 
     // Check if user already has an active or completed attempt
