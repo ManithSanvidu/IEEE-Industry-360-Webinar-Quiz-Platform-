@@ -29,6 +29,22 @@ export async function initializeDatabase() {
     )
   `;
 
+  // Create settings table
+  await sql`
+    CREATE TABLE IF NOT EXISTS settings (
+      key VARCHAR(255) UNIQUE NOT NULL,
+      value VARCHAR(255) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW()
+    )
+  `;
+
+  // Insert default is_quiz_active setting if not exists
+  await sql`
+    INSERT INTO settings (key, value)
+    VALUES ('is_quiz_active', 'false')
+    ON CONFLICT (key) DO NOTHING
+  `;
+
   // Create quiz_attempts table
   await sql`
     CREATE TABLE IF NOT EXISTS quiz_attempts (
