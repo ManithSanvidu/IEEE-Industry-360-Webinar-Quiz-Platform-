@@ -188,6 +188,33 @@ export default function Home() {
             Rs. 4,000 – Rs. 5,000 exclusive gift box courtesy of our valued Gift
             Partner!
           </div>
+
+          {/* QR Code Section */}
+          <div
+            style={{
+              marginTop: '2rem',
+              padding: '1.5rem',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '14px',
+              display: 'inline-block',
+            }}
+          >
+            <p style={{ color: 'var(--dragon-gold)', fontWeight: 'bold', marginBottom: '1rem', fontSize: '1.1rem' }}>
+              📱 Scan to Play on Mobile
+            </p>
+            <div style={{ background: 'white', padding: '10px', borderRadius: '8px', display: 'inline-block' }}>
+              {/* Using a free QR Code generation API */}
+              <img 
+                src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://ieee-industry-360-webinar.vercel.app/" 
+                alt="QR Code for Quiz" 
+                style={{ display: 'block', width: '160px', height: '160px' }} 
+              />
+            </div>
+            <p style={{ marginTop: '0.8rem', fontSize: '0.85rem', color: 'rgba(220,231,245,0.6)' }}>
+              ieee-industry-360-webinar.vercel.app
+            </p>
+          </div>
         </div>
       </div>
     </>
