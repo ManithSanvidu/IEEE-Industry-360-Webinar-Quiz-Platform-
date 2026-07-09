@@ -12,6 +12,7 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [adminEmail, setAdminEmail] = useState('');
   const [msg, setMsg] = useState({ type: '', text: '' });
+  const [isQuizActive, setIsQuizActive] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -20,13 +21,15 @@ export default function Admin() {
         const authRes = await fetch('/api/auth/me');
         const authData = await authRes.json();
         if (!authData.user || !authData.user.is_admin) { router.push('/'); return; }
-        const [resData, adminData] = await Promise.all([
+        const [resData, adminData, statusData] = await Promise.all([
           fetch('/api/admin/results').then(r => r.json()),
-          fetch('/api/admin/manage').then(r => r.json())
+          fetch('/api/admin/manage').then(r => r.json()),
+          fetch('/api/admin/quiz-status').then(r => r.json())
         ]);
         if (resData.results) setResults(resData.results);
         setStats({ totalUsers: resData.totalUsers || 0, completedQuizzes: resData.completedQuizzes || 0 });
         if (adminData.admins) setAdmins(adminData.admins);
+        setIsQuizActive(statusData.isActive || false);
       } catch (err) { console.error(err); }
       finally { setLoading(false); }
     };
@@ -62,6 +65,25 @@ export default function Admin() {
   const avgScore = completedResults.length ? (completedResults.reduce((a, r) => a + r.score, 0) / completedResults.length).toFixed(1) : 0;
   const avgTime = completedResults.length ? Math.round(completedResults.reduce((a, r) => a + (r.time_taken_seconds || 0), 0) / completedResults.length) : 0;
 
+  const toggleQuizStatus = async () => {
+    try {
+      const newStatus = !isQuizActive;
+      const res = await fetch('/api/admin/quiz-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isActive: newStatus })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setIsQuizActive(data.isActive);
+      } else {
+        alert(data.error);
+      }
+    } catch(err) {
+      alert('Error toggling quiz status');
+    }
+  };
+
   if (loading) {
     return (<><DragonBackground /><Navbar /><div className="page-container"><p>Loading admin dashboard...</p></div></>);
   }
@@ -72,6 +94,22 @@ export default function Admin() {
       <Navbar />
       <div className="admin-container" style={{ zIndex: 1, position: 'relative' }}>
         <h1 className="section-title">⚡ Admin Dashboard</h1>
+
+        <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <h2 style={{ color: 'var(--dragon-gold)', margin: 0 }}>🎮 Quiz Status</h2>
+            <p style={{ margin: '0.5rem 0 0 0', color: 'rgba(220,231,245,0.7)', fontSize: '0.9rem' }}>
+              Current Status: {isQuizActive ? <span style={{ color: '#86efac', fontWeight: 'bold' }}>Active</span> : <span style={{ color: '#fdba74', fontWeight: 'bold' }}>Not Started</span>}
+            </p>
+          </div>
+          <button 
+            className={isQuizActive ? 'btn-secondary' : 'btn-fire'}
+            style={{ padding: '12px 24px' }}
+            onClick={toggleQuizStatus}
+          >
+            {isQuizActive ? '⏹️ Stop Quiz' : '🚀 Start Quiz for Everyone'}
+          </button>
+        </div>
 
         <div className="stats-grid">
           <div className="stat-card"><div className="stat-value">{stats.totalUsers}</div><div className="stat-label">Total Participants</div></div>
