@@ -68,7 +68,7 @@ export default function Instructions() {
           </table>
         </div>
 
-        <div className="glass-card" style={{ marginBottom: '2rem' }}>
+        <div className="glass-card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
           <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1.5rem', fontSize: '1.3rem' }}>📌 Participation Guidelines</h2>
           {guidelines.map((g, i) => (
             <div key={i} className="instruction-item">
