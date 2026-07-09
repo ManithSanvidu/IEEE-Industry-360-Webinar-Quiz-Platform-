@@ -140,13 +140,13 @@ export default function Home() {
                 <>
                   <Link href="/register">
                     <button
-                      className="btn-primary"
+                      className="btn-fire"
                       style={{
                         fontSize: '1.05rem',
                         padding: '16px 36px',
                       }}
                     >
-                      📝 Register Now
+                      🚀 Play Now
                     </button>
                   </Link>
 
@@ -158,7 +158,7 @@ export default function Home() {
                         padding: '16px 36px',
                       }}
                     >
-                      🔑 Login
+                      🔑 Admin Login
                     </button>
                   </Link>
                 </>
