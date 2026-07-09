@@ -56,30 +56,20 @@ export default function Home() {
           <h1
             style={{
               fontSize: 'clamp(3rem, 7vw, 4.5rem)',
-              fontWeight: 900,
-              lineHeight: 1.05,
+              fontWeight: 700,
+              lineHeight: 1.1,
               marginBottom: '1.5rem',
-              fontFamily: 'var(--font-sans)',
+              fontFamily: 'var(--font-serif)',
+              color: 'var(--dragon-gold)',
               textTransform: 'uppercase',
-              letterSpacing: '-1px'
+              letterSpacing: '1px'
             }}
           >
-            <span style={{ color: '#FFFFFF', display: 'block', marginBottom: '0.2rem' }}>
+            <span style={{ display: 'block', marginBottom: '0.2rem' }}>
               IEEE Industry 360'
             </span>
-            <span style={{ color: '#FFFFFF', display: 'block', fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: '0.5rem' }}>
+            <span style={{ display: 'block', fontSize: 'clamp(2.5rem, 6vw, 3.8rem)', marginBottom: '0.5rem' }}>
               Webinar Quiz
-            </span>
-            <span
-              style={{
-                background: 'linear-gradient(to right, var(--fire-orange), var(--dragon-gold))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                display: 'block'
-              }}
-            >
-              Knowledge Challenge
             </span>
           </h1>
 
