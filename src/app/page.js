@@ -173,20 +173,6 @@ export default function Home() {
                     </button>
                   </Link>
 
-                  <Link href="/login">
-                    <button
-                      className="btn-secondary"
-                      style={{
-                        padding: '16px 40px',
-                        fontSize: '1.05rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
-                      }}
-                    >
-                      <span>⚙️</span> Admin Login
-                    </button>
-                  </Link>
                 </>
               )}
             </div>
