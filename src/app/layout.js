@@ -3,6 +3,28 @@ import './globals.css';
 export const metadata = {
   title: "IEEE Industry 360' Webinar Quiz",
   description: "Test your knowledge from the IEEE Industry 360' Webinar interactive quiz",
+  openGraph: {
+    title: "IEEE Industry 360' Webinar Quiz",
+    description: "Test your knowledge from the IEEE Industry 360' Webinar interactive quiz",
+    url: 'https://ieee-industry-360-webinar.vercel.app',
+    siteName: 'IEEE Industry 360 Quiz',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'IEEE Industry 360 Webinar Quiz',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "IEEE Industry 360' Webinar Quiz",
+    description: "Test your knowledge from the IEEE Industry 360' Webinar interactive quiz",
+    images: ['/og-image.png'],
+  },
 };
 
 export default function RootLayout({ children }) {
