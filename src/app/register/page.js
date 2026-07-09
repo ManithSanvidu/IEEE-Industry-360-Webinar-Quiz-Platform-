@@ -6,7 +6,7 @@ import DragonBackground from '@/components/DragonBackground';
 import Navbar from '@/components/Navbar';
 
 export default function Register() {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export default function Register() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setSuccess(data.message);
-      setTimeout(() => router.push('/login'), 1500);
+      setTimeout(() => router.push('/instructions'), 1500);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -41,10 +41,10 @@ export default function Register() {
           <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
             <div className="dragon-icon">📝</div>
             <h1 style={{ fontSize: '1.8rem', fontWeight: 800 }}>
-              <span className="fire-text">Register</span>
+              <span className="fire-text">Participant Details</span>
             </h1>
             <p style={{ color: 'rgba(220,231,245,0.6)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
-              Create your account to take the quiz
+              Enter your name and email to play the quiz
             </p>
           </div>
 
@@ -74,19 +74,10 @@ export default function Register() {
               <input id="register-email" className="input-field" type="email" placeholder="your.email@example.com" required
                 value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
             </div>
-            <div className="form-group">
-              <label className="form-label">Password</label>
-              <input id="register-password" className="input-field" type="password" placeholder="Min 6 characters" required minLength={6}
-                value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
-            </div>
             <button id="register-submit" type="submit" className="btn-fire" style={{ width: '100%', marginTop: '0.5rem' }} disabled={loading}>
-              {loading ? '🔄 Creating Account...' : ' Register'}
+              {loading ? '🔄 Preparing Quiz...' : ' Play Now'}
             </button>
           </form>
-
-          <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.9rem', color: 'rgba(220,231,245,0.6)' }}>
-            Already have an account? <Link href="/login" style={{ color: 'var(--main-purple)', textDecoration: 'none', fontWeight: 600 }}>Login here</Link>
-          </p>
         </div>
       </div>
     </>
