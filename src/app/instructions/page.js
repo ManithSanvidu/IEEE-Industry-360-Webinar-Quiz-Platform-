@@ -71,12 +71,50 @@ export default function Instructions() {
         <div className="glass-card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
           <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1.5rem', fontSize: '1.3rem' }}>📌 Participation Guidelines</h2>
           {guidelines.map((g, i) => (
-            <div key={i} className="instruction-item">
-              <div className="instruction-num">{g.icon}</div>
-              <div>
-                <h3 style={{ fontSize: '1rem', marginBottom: '0.25rem', color: 'var(--sky-mist)' }}>{g.title}</h3>
-                <p style={{ fontSize: '0.88rem', color: 'rgba(220,231,245,0.65)', lineHeight: 1.6 }}>{g.desc}</p>
+            <div
+              key={i}
+              className="instruction-item"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                padding: "1.5rem",
+                marginBottom: "1rem",
+              }}
+            >
+              <div
+                className="instruction-num"
+                style={{
+                  marginBottom: "0.8rem",
+                  fontSize: "2rem",
+                }}
+              >
+                {g.icon}
               </div>
+
+              <h3
+                style={{
+                  fontSize: "1rem",
+                  marginBottom: "0.5rem",
+                  color: "var(--sky-mist)",
+                }}
+              >
+                {g.title}
+              </h3>
+
+              <p
+                style={{
+                  fontSize: "0.9rem",
+                  color: "rgba(220,231,245,0.65)",
+                  lineHeight: 1.7,
+                  maxWidth: "700px",
+                  margin: "0 auto",
+                }}
+              >
+                {g.desc}
+              </p>
             </div>
           ))}
         </div>
