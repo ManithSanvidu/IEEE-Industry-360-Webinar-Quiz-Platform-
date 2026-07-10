@@ -19,7 +19,17 @@ export default function Instructions() {
     <>
       <DragonBackground />
       <Navbar />
-      <div className="instructions-container" style={{ zIndex: 1, position: 'relative' }}>
+      <div
+        className="instructions-container"
+        style={{
+          zIndex: 1,
+          position: "relative",
+          maxWidth: "1400px",
+          margin: "0 auto",
+          width: "100%",
+          padding: "2rem 1.5rem",
+        }}
+      >
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div className="dragon-icon" style={{ fontSize: '3.5rem' }}>📜</div>
           <h1 className="section-title" style={{ fontSize: '2.2rem' }}>Quiz Guidelines</h1>
@@ -35,10 +45,12 @@ export default function Instructions() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "2fr 1fr",
+            gridTemplateColumns: "minmax(0, 2fr) minmax(320px, 420px)",
             gap: "1.5rem",
-            marginBottom: "2rem",
-            alignItems: "start",
+            margin: "0 auto 2rem",
+            alignItems: "stretch",
+            maxWidth: "1200px",
+            width: "100%",
           }}
         >
           {/* Quiz Format */}
@@ -157,8 +169,10 @@ export default function Instructions() {
         <div
           className="glass-card"
           style={{
-            marginBottom: "1.5rem",
-            padding: "1.2rem",
+            margin: "0 auto 1.5rem",
+            padding: "1.5rem",
+            maxWidth: "1200px",
+            width: "100%",
           }}
         >
           <h2
@@ -174,8 +188,10 @@ export default function Instructions() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "0.8rem",
+              gridTemplateColumns: "repeat(auto-fit, minmax(420px, 1fr))",
+              gap: "1rem",
+              justifyContent: "center",
+              alignItems: "stretch",
             }}
           >
             {guidelines.map((g, i) => (
@@ -227,7 +243,17 @@ export default function Instructions() {
           </div>
         </div>
 
-        <div className="glass-card" style={{ textAlign: 'center', background: 'linear-gradient(135deg, rgba(249,115,22,0.15), rgba(245,185,66,0.1))' }}>
+        <div
+          className="glass-card"
+          style={{
+            textAlign: "center",
+            background:
+              "linear-gradient(135deg, rgba(249,115,22,0.15), rgba(245,185,66,0.1))",
+            maxWidth: "900px",
+            margin: "0 auto",
+            width: "100%",
+          }}
+        >
           <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🏆</div>
           <h2 style={{ color: 'var(--dragon-gold)', fontSize: '1.4rem', marginBottom: '0.5rem' }}>Winner&apos;s Prize</h2>
           <p style={{ color: 'rgba(220,231,245,0.7)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
