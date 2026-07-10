@@ -16,7 +16,7 @@ export default function Home() {
       .then((d) => {
         if (d.user) setUser(d.user);
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
   }, []);
 
@@ -175,19 +175,7 @@ export default function Home() {
             <span style={{ fontSize: '1.5rem', color: 'var(--dragon-gold)' }}>♦</span>
           </div>
 
-          <div
-            style={{
-              marginTop: '1.5rem',
-              padding: '1rem',
-              fontSize: '0.9rem',
-              color: 'rgba(226,232,240,0.6)',
-              textTransform: 'uppercase',
-              letterSpacing: '1px'
-            }}
-          >
-            <span style={{ color: 'var(--dragon-gold)', fontWeight: 700 }}>🏆 Winner's Prize:</span>{' '}
-            Rs. 4,000 – Rs. 5,000 exclusive gift box courtesy of our valued Gift Partner!
-          </div>
+
 
           {/* QR Code Section */}
           <div
@@ -205,10 +193,10 @@ export default function Home() {
             </p>
             <div style={{ background: 'white', padding: '10px', borderRadius: '8px', display: 'inline-block' }}>
               {/* Using a free QR Code generation API */}
-              <img 
-                src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://ieee-industry-360-webinar.vercel.app/" 
-                alt="QR Code for Quiz" 
-                style={{ display: 'block', width: '160px', height: '160px' }} 
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://ieee-industry-360-webinar.vercel.app/"
+                alt="QR Code for Quiz"
+                style={{ display: 'block', width: '160px', height: '160px' }}
               />
             </div>
             <p style={{ marginTop: '0.8rem', fontSize: '0.85rem', color: 'rgba(220,231,245,0.6)' }}>
