@@ -6,11 +6,18 @@ import bcrypt from 'bcryptjs';
 export async function POST(request) {
   try {
     await ensureDbInitialized();
-    const { name, email } = await request.json();
+    const { name, email, password, isAdminRequest } = await request.json();
 
     if (!name || !email) {
       return NextResponse.json(
         { error: 'Name and email are required' },
+        { status: 400 }
+      );
+    }
+    
+    if (isAdminRequest && !password) {
+      return NextResponse.json(
+        { error: 'Password is required for admin registration' },
         { status: 400 }
       );
     }
@@ -24,11 +31,20 @@ export async function POST(request) {
       // Optionally update name if needed, but we'll just use the existing one
     } else {
       // Create new user
-      const dummyPassword = await bcrypt.hash('dummy_password_' + Date.now(), 10);
+      let hashedPassword;
+      let is_admin_pending = false;
+      
+      if (isAdminRequest && password) {
+        hashedPassword = await bcrypt.hash(password, 12);
+        is_admin_pending = true;
+      } else {
+        hashedPassword = await bcrypt.hash('dummy_password_' + Date.now(), 10);
+      }
+
       const result = await sql`
-        INSERT INTO users (name, email, password)
-        VALUES (${name}, ${email.toLowerCase()}, ${dummyPassword})
-        RETURNING id, name, email, is_admin
+        INSERT INTO users (name, email, password, is_admin_pending)
+        VALUES (${name}, ${email.toLowerCase()}, ${hashedPassword}, ${is_admin_pending})
+        RETURNING id, name, email, is_admin, is_admin_pending
       `;
       user = result[0];
     }
