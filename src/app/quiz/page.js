@@ -17,6 +17,7 @@ export default function Quiz() {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [notStarted, setNotStarted] = useState(false);
   const [result, setResult] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const timerRef = useRef(null);
   const answersRef = useRef({});
   const submittingRef = useRef(false);
@@ -244,41 +245,81 @@ export default function Quiz() {
           <div className="progress-bar"><div className="progress-fill" style={{ width: `${progress}%` }} /></div>
         </div>
 
-        {questions.map((q, idx) => (
-          <div key={q.id} className="question-card" style={{ animationDelay: `${idx * 0.1}s` }}>
-            <div>
-              <span className="question-number">Q{q.id}</span>
-              <span className="question-type">{q.type === 'mcq' ? '📝 MCQ' : '✍️ Short Answer'}</span>
+        {questions.length > 0 && (
+          <div className="question-card slide-in-right" key={currentIndex} style={{ animation: 'slideInRight 0.4s ease-out forwards', opacity: 0 }}>
+            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+              <span className="question-number">Q{questions[currentIndex].id}</span>
+              <span className="question-type" style={{ marginLeft: '10px' }}>
+                {questions[currentIndex].type === 'mcq' ? '📝 MCQ' : '✍️ Short Answer'}
+              </span>
             </div>
-            <p className="question-text">{q.question}</p>
+            <p className="question-text" style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '2rem' }}>
+              {questions[currentIndex].question}
+            </p>
 
-            {q.options ? (
-              q.options.map((opt, oi) => (
-                <button key={oi} className={`option-btn ${answers[q.id] === opt ? 'selected' : ''}`}
-                  onClick={() => setAnswers({...answers, [q.id]: opt})}>
-                  <span style={{ color: 'var(--dragon-gold)', fontWeight: 600, marginRight: '10px' }}>
-                    {String.fromCharCode(65 + oi)}.
-                  </span>
-                  {opt}
-                </button>
-              ))
+            {questions[currentIndex].options ? (
+              <div style={{ display: 'grid', gap: '12px', maxWidth: '600px', margin: '0 auto' }}>
+                {questions[currentIndex].options.map((opt, oi) => (
+                  <button key={oi} className={`option-btn ${answers[questions[currentIndex].id] === opt ? 'selected' : ''}`}
+                    onClick={() => setAnswers({...answers, [questions[currentIndex].id]: opt})}>
+                    <span style={{ color: 'var(--dragon-gold)', fontWeight: 600, marginRight: '10px' }}>
+                      {String.fromCharCode(65 + oi)}.
+                    </span>
+                    {opt}
+                  </button>
+                ))}
+              </div>
             ) : (
-              <input className="short-answer-input" type="text" placeholder="Type your answer here..."
-                value={answers[q.id] || ''}
-                onChange={e => setAnswers({...answers, [q.id]: e.target.value})} />
+              <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                <input className="short-answer-input" type="text" placeholder="Type your answer here..."
+                  style={{ textAlign: 'center', width: '100%' }}
+                  value={answers[questions[currentIndex].id] || ''}
+                  onChange={e => setAnswers({...answers, [questions[currentIndex].id]: e.target.value})} />
+              </div>
             )}
+            
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
+              <p style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.5)' }}>
+                Answered {answeredCount} of {questions.length}
+              </p>
+              <div>
+                {currentIndex > 0 && (
+                  <button 
+                    className="btn-secondary" 
+                    style={{ marginRight: '1rem', padding: '12px 24px' }}
+                    onClick={() => setCurrentIndex(currentIndex - 1)}
+                  >
+                    ⬅️ Previous
+                  </button>
+                )}
+                {currentIndex < questions.length - 1 ? (
+                  <button 
+                    className="btn-primary" 
+                    style={{ padding: '12px 24px' }}
+                    onClick={() => setCurrentIndex(currentIndex + 1)}
+                  >
+                    Next ➡️
+                  </button>
+                ) : (
+                  <button 
+                    className="btn-fire" 
+                    style={{ padding: '12px 24px' }}
+                    onClick={() => doSubmit()} 
+                    disabled={submitting}
+                  >
+                    {submitting ? '🔄 Submitting...' : ' Submit Quest'}
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
-        ))}
-
-        <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-          <button className="btn-fire" style={{ fontSize: '1.1rem', padding: '16px 50px' }}
-            onClick={() => doSubmit()} disabled={submitting}>
-            {submitting ? '🔄 Submitting...' : ' Submit Quest'}
-          </button>
-          <p style={{ marginTop: '0.75rem', fontSize: '0.8rem', color: 'rgba(220,231,245,0.4)' }}>
-            Answered {answeredCount} of {questions.length} questions
-          </p>
-        </div>
+        )}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes slideInRight {
+            0% { transform: translateX(50px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+          }
+        `}} />
       </div>
     </>
   );

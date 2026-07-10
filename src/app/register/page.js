@@ -61,7 +61,7 @@ export default function Register() {
             fontSize: '0.85rem',
             color: 'var(--dragon-gold)'
           }}>
-            ⚠️ Please register with the <strong>same email</strong> you used to register for the webinar.
+            ⚠️ Please register with the <strong>same name and email</strong> you used to register for the giveaway of the webinar.
           </div>
 
           {error && <div className="error-msg">{error}</div>}

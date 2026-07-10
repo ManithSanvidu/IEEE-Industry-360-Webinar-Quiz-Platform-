@@ -115,20 +115,63 @@ export default function Admin() {
       <div className="admin-container" style={{ zIndex: 1, position: 'relative' }}>
         <h1 className="section-title">⚡ Admin Dashboard</h1>
 
-        <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <h2 style={{ color: 'var(--dragon-gold)', margin: 0 }}>🎮 Quiz Status</h2>
-            <p style={{ margin: '0.5rem 0 0 0', color: 'rgba(220,231,245,0.7)', fontSize: '0.9rem' }}>
-              Current Status: {isQuizActive ? <span style={{ color: '#86efac', fontWeight: 'bold' }}>Active</span> : <span style={{ color: '#fdba74', fontWeight: 'bold' }}>Not Started</span>}
-            </p>
+        <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+            <div>
+              <h2 style={{ color: 'var(--dragon-gold)', margin: 0 }}>🎮 Quiz Status</h2>
+              <p style={{ margin: '0.5rem 0 0 0', color: 'rgba(220,231,245,0.7)', fontSize: '0.9rem' }}>
+                Current Status: {isQuizActive ? <span style={{ color: '#86efac', fontWeight: 'bold' }}>Active</span> : <span style={{ color: '#fdba74', fontWeight: 'bold' }}>Not Started</span>}
+              </p>
+            </div>
+            <button 
+              className={isQuizActive ? 'btn-secondary' : 'btn-fire'}
+              style={{ padding: '12px 24px' }}
+              onClick={toggleQuizStatus}
+            >
+              {isQuizActive ? '⏹️ Stop Quiz' : '🚀 Start Quiz for Everyone'}
+            </button>
           </div>
-          <button 
-            className={isQuizActive ? 'btn-secondary' : 'btn-fire'}
-            style={{ padding: '12px 24px' }}
-            onClick={toggleQuizStatus}
-          >
-            {isQuizActive ? '⏹️ Stop Quiz' : '🚀 Start Quiz for Everyone'}
-          </button>
+          
+          <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <button 
+              className="btn-secondary" 
+              style={{ padding: '10px 20px', fontSize: '0.9rem', borderColor: 'var(--fire-orange)', color: 'var(--fire-orange)' }}
+              onClick={async () => {
+                if (confirm('Are you sure you want to clear the leaderboard? This will delete all quiz attempts.')) {
+                  try {
+                    const res = await fetch('/api/admin/clear-data', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ action: 'leaderboard' })
+                    });
+                    if (res.ok) window.location.reload();
+                    else alert((await res.json()).error);
+                  } catch (err) { alert('Failed to clear leaderboard'); }
+                }
+              }}
+            >
+              🗑️ Clear Leaderboard
+            </button>
+            <button 
+              className="btn-secondary" 
+              style={{ padding: '10px 20px', fontSize: '0.9rem', borderColor: '#ef4444', color: '#ef4444' }}
+              onClick={async () => {
+                if (confirm('Are you sure you want to clear ALL users and attempts? This is irreversible!')) {
+                  try {
+                    const res = await fetch('/api/admin/clear-data', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ action: 'users' })
+                    });
+                    if (res.ok) window.location.reload();
+                    else alert((await res.json()).error);
+                  } catch (err) { alert('Failed to clear users'); }
+                }
+              }}
+            >
+              🗑️ Clear All Users
+            </button>
+          </div>
         </div>
 
         <div className="stats-grid">
