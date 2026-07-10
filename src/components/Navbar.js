@@ -21,8 +21,26 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link href="/" className="navbar-brand" style={{ display: 'inline-block', overflow: 'hidden', height: '60px', width: '180px' }}>
-        <img src={logo.src} alt="Image 1" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.5)' }} />
+      <Link
+        href="/"
+        className="navbar-brand"
+        style={{
+          display: "inline-block",
+          overflow: "hidden",
+          height: "60px",
+          width: "180px",
+        }}
+      >
+        <img
+          src={logo.src}
+          alt="IEEE Industry 360 Logo"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            transform: "scale(0.9)", // Zoom out
+          }}
+        />
       </Link>
       <div className="navbar-links">
         {user ? (
