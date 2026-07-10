@@ -21,7 +21,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link href="/" className="navbar-brand">
-        <img src="/logo.jpeg" alt="Industry 360 Logo" style={{ height: '40px', objectFit: 'contain' }} />
+        <img src="/image1.png" alt="Industry 360 Logo" style={{ height: '40px', objectFit: 'contain' }} />
       </Link>
       <div className="navbar-links">
         {user ? (
