@@ -30,7 +30,7 @@ export default function Instructions() {
           padding: "2rem 1.5rem",
         }}
       >
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '4rem' }}>
           <div className="dragon-icon" style={{ fontSize: '3.5rem' }}>📜</div>
           <h1 className="section-title" style={{ fontSize: '2.2rem' }}>Quiz Guidelines</h1>
           <p style={{ color: 'rgba(220,231,245,0.6)' }}>Everything you need to know before you play</p>
