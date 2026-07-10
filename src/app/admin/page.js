@@ -8,6 +8,7 @@ export default function Admin() {
   const [tab, setTab] = useState('results');
   const [results, setResults] = useState([]);
   const [admins, setAdmins] = useState([]);
+  const [pendingAdmins, setPendingAdmins] = useState([]);
   const [stats, setStats] = useState({ totalUsers: 0, completedQuizzes: 0 });
   const [loading, setLoading] = useState(true);
   const [adminEmail, setAdminEmail] = useState('');
@@ -29,6 +30,7 @@ export default function Admin() {
         if (resData.results) setResults(resData.results);
         setStats({ totalUsers: resData.totalUsers || 0, completedQuizzes: resData.completedQuizzes || 0 });
         if (adminData.admins) setAdmins(adminData.admins);
+        if (adminData.pendingAdmins) setPendingAdmins(adminData.pendingAdmins);
         setIsQuizActive(statusData.isActive || false);
       } catch (err) { console.error(err); }
       finally { setLoading(false); }
@@ -58,6 +60,24 @@ export default function Admin() {
       setAdminEmail('');
       const adminData = await fetch('/api/admin/manage').then(r => r.json());
       if (adminData.admins) setAdmins(adminData.admins);
+      if (adminData.pendingAdmins) setPendingAdmins(adminData.pendingAdmins);
+    } catch (err) { setMsg({ type: 'error', text: err.message }); }
+  };
+
+  const approveAdmin = async (email) => {
+    setMsg({ type: '', text: '' });
+    try {
+      const res = await fetch('/api/admin/manage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      setMsg({ type: 'success', text: data.message });
+      const adminData = await fetch('/api/admin/manage').then(r => r.json());
+      if (adminData.admins) setAdmins(adminData.admins);
+      if (adminData.pendingAdmins) setPendingAdmins(adminData.pendingAdmins);
     } catch (err) { setMsg({ type: 'error', text: err.message }); }
   };
 
@@ -204,6 +224,33 @@ export default function Admin() {
                 ))}
               </tbody>
             </table>
+
+            <h3 style={{ color: 'var(--sky-mist)', marginBottom: '1rem', marginTop: '2rem' }}>Pending Admin Requests</h3>
+            {pendingAdmins.length === 0 ? (
+              <p style={{ color: 'rgba(220,231,245,0.5)', padding: '1rem' }}>No pending requests.</p>
+            ) : (
+              <table className="data-table">
+                <thead><tr><th>Name</th><th>Email</th><th>Requested</th><th>Action</th></tr></thead>
+                <tbody>
+                  {pendingAdmins.map((pa, i) => (
+                    <tr key={i}>
+                      <td style={{ fontWeight: 600 }}>{pa.name}</td>
+                      <td style={{ color: 'rgba(220,231,245,0.6)' }}>{pa.email}</td>
+                      <td style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.5)' }}>{new Date(pa.created_at).toLocaleDateString()}</td>
+                      <td>
+                        <button 
+                          className="btn-primary" 
+                          style={{ padding: '6px 12px', fontSize: '0.8rem' }}
+                          onClick={() => approveAdmin(pa.email)}
+                        >
+                          Approve
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
       </div>
