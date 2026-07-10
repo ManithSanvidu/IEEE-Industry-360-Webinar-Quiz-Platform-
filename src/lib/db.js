@@ -29,6 +29,10 @@ export async function initializeDatabase() {
     )
   `;
 
+  await sql`
+    ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin_pending BOOLEAN DEFAULT FALSE
+  `;
+
   // Create settings table
   await sql`
     CREATE TABLE IF NOT EXISTS settings (
