@@ -66,7 +66,7 @@ export default function Home() {
             }}
           >
             <span style={{ display: 'block', marginBottom: '0.2rem' }}>
-              IEEE Industry 360'
+              IEEE Industry 360 Live
             </span>
             <span style={{ display: 'block', fontSize: 'clamp(2.5rem, 6vw, 3.8rem)', marginBottom: '0.5rem' }}>
               Webinar Quiz
@@ -83,7 +83,7 @@ export default function Home() {
               margin: '0 auto 2.5rem auto',
             }}
           >
-            Test your knowledge from today's IEEE Industry 360 webinar.
+            Test your knowledge from today's IEEE Industry 360 Live webinar.
             Answer 10 questions within 10 minutes. The participant with the
             highest score and fastest completion time will be selected as the winner.
           </p>
