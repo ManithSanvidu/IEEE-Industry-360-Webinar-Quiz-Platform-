@@ -116,7 +116,7 @@ export default function Home() {
             >
               {user ? (
                 <>
-                  <Link href="/instructions">
+                  <Link href="/instructions" style={{ textDecoration: "none" }}>
                     <button
                       className="btn-secondary"
                       style={{
