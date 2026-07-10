@@ -69,7 +69,7 @@ export default function Quiz() {
 
         const quizRes = await fetch('/api/quiz');
         const quizData = await quizRes.json();
-        
+
         if (quizData.notStarted) {
           setNotStarted(true);
           setLoading(false);
@@ -113,7 +113,7 @@ export default function Quiz() {
         if (!d.notStarted && !d.error) {
           window.location.reload();
         }
-      }).catch(() => {});
+      }).catch(() => { });
     }, 5000);
     return () => clearInterval(interval);
   }, [notStarted]);
@@ -174,7 +174,8 @@ export default function Quiz() {
             </p>
           </div>
         </div>
-        <style dangerouslySetInnerHTML={{__html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           .loading-spinner {
             border: 4px solid rgba(249,115,22,0.2);
             border-top: 4px solid var(--fire-orange);
@@ -246,22 +247,58 @@ export default function Quiz() {
         </div>
 
         {questions.length > 0 && (
-          <div className="question-card slide-in-right" key={currentIndex} style={{ animation: 'slideInRight 0.4s ease-out forwards', opacity: 0 }}>
-            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+          <div
+            className="question-card slide-in-right"
+            key={currentIndex}
+            style={{
+              animation: 'slideInRight 0.4s ease-out forwards',
+              opacity: 0,
+              maxWidth: '900px',
+              margin: '0 auto',
+              textAlign: 'center'
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '1rem',
+                flexWrap: 'wrap'
+              }}
+            >
               <span className="question-number">Q{questions[currentIndex].id}</span>
               <span className="question-type" style={{ marginLeft: '10px' }}>
                 {questions[currentIndex].type === 'mcq' ? '📝 MCQ' : '✍️ Short Answer'}
               </span>
             </div>
-            <p className="question-text" style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '2rem' }}>
+            <p
+              className="question-text"
+              style={{
+                maxWidth: '750px',
+                margin: '0 auto 2rem',
+                textAlign: 'center',
+                fontSize: '1.4rem',
+                lineHeight: '1.7',
+                fontWeight: 600
+              }}
+            >
               {questions[currentIndex].question}
             </p>
 
             {questions[currentIndex].options ? (
-              <div style={{ display: 'grid', gap: '12px', maxWidth: '600px', margin: '0 auto' }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gap: '12px',
+                  maxWidth: '700px',
+                  margin: '0 auto'
+                }}
+              >
                 {questions[currentIndex].options.map((opt, oi) => (
                   <button key={oi} className={`option-btn ${answers[questions[currentIndex].id] === opt ? 'selected' : ''}`}
-                    onClick={() => setAnswers({...answers, [questions[currentIndex].id]: opt})}>
+                    onClick={() => setAnswers({ ...answers, [questions[currentIndex].id]: opt })}>
                     <span style={{ color: 'var(--dragon-gold)', fontWeight: 600, marginRight: '10px' }}>
                       {String.fromCharCode(65 + oi)}.
                     </span>
@@ -274,18 +311,18 @@ export default function Quiz() {
                 <input className="short-answer-input" type="text" placeholder="Type your answer here..."
                   style={{ textAlign: 'center', width: '100%' }}
                   value={answers[questions[currentIndex].id] || ''}
-                  onChange={e => setAnswers({...answers, [questions[currentIndex].id]: e.target.value})} />
+                  onChange={e => setAnswers({ ...answers, [questions[currentIndex].id]: e.target.value })} />
               </div>
             )}
-            
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
               <p style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.5)' }}>
                 Answered {answeredCount} of {questions.length}
               </p>
               <div>
                 {currentIndex > 0 && (
-                  <button 
-                    className="btn-secondary" 
+                  <button
+                    className="btn-secondary"
                     style={{ marginRight: '1rem', padding: '12px 24px' }}
                     onClick={() => setCurrentIndex(currentIndex - 1)}
                   >
@@ -293,18 +330,18 @@ export default function Quiz() {
                   </button>
                 )}
                 {currentIndex < questions.length - 1 ? (
-                  <button 
-                    className="btn-primary" 
+                  <button
+                    className="btn-primary"
                     style={{ padding: '12px 24px' }}
                     onClick={() => setCurrentIndex(currentIndex + 1)}
                   >
                     Next ➡️
                   </button>
                 ) : (
-                  <button 
-                    className="btn-fire" 
+                  <button
+                    className="btn-fire"
                     style={{ padding: '12px 24px' }}
-                    onClick={() => doSubmit()} 
+                    onClick={() => doSubmit()}
                     disabled={submitting}
                   >
                     {submitting ? '🔄 Submitting...' : ' Submit Quest'}
@@ -314,7 +351,8 @@ export default function Quiz() {
             </div>
           </div>
         )}
-        <style dangerouslySetInnerHTML={{__html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           @keyframes slideInRight {
             0% { transform: translateX(50px); opacity: 0; }
             100% { transform: translateX(0); opacity: 1; }
