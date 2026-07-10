@@ -25,6 +25,11 @@ export const metadata = {
     description: "Test your knowledge from the IEEE Industry 360' Webinar interactive quiz",
     images: ['/og-image.png'],
   },
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({ children }) {
