@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import sql, { ensureDbInitialized } from '@/lib/db';
 import { getUserFromRequest } from '@/lib/auth';
 
-// POST - Make a user an admin
+// POST - Make a user an admin or approve pending admin
 export async function POST(request) {
   try {
     await ensureDbInitialized();
@@ -18,7 +18,7 @@ export async function POST(request) {
     }
 
     // Find user by email
-    const users = await sql`SELECT id, name, email, is_admin FROM users WHERE email = ${email.toLowerCase()}`;
+    const users = await sql`SELECT id, name, email, is_admin, is_admin_pending FROM users WHERE email = ${email.toLowerCase()}`;
     if (users.length === 0) {
       return NextResponse.json(
         { error: 'User not found with this email' },
@@ -34,11 +34,11 @@ export async function POST(request) {
     }
 
     // Make user admin
-    await sql`UPDATE users SET is_admin = TRUE WHERE email = ${email.toLowerCase()}`;
+    await sql`UPDATE users SET is_admin = TRUE, is_admin_pending = FALSE WHERE email = ${email.toLowerCase()}`;
 
     return NextResponse.json({
       message: `${users[0].name} has been made an admin`,
-      user: { ...users[0], is_admin: true }
+      user: { ...users[0], is_admin: true, is_admin_pending: false }
     });
   } catch (error) {
     console.error('Make admin error:', error);
@@ -49,7 +49,7 @@ export async function POST(request) {
   }
 }
 
-// GET - List all admins
+// GET - List all admins and pending admins
 export async function GET(request) {
   try {
     await ensureDbInitialized();
@@ -61,8 +61,12 @@ export async function GET(request) {
     const admins = await sql`
       SELECT id, name, email, created_at FROM users WHERE is_admin = TRUE ORDER BY created_at ASC
     `;
+    
+    const pendingAdmins = await sql`
+      SELECT id, name, email, created_at FROM users WHERE is_admin_pending = TRUE AND is_admin = FALSE ORDER BY created_at ASC
+    `;
 
-    return NextResponse.json({ admins });
+    return NextResponse.json({ admins, pendingAdmins });
   } catch (error) {
     console.error('List admins error:', error);
     return NextResponse.json(
