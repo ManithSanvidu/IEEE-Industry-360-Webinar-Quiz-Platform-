@@ -71,36 +71,16 @@ export default function Register() {
             <div className="form-group">
               <label className="form-label">Full Name</label>
               <input id="register-name" className="input-field" type="text" placeholder="Enter your full name" required
-                value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
             </div>
             <div className="form-group">
               <label className="form-label">Email Address</label>
               <input id="register-email" className="input-field" type="email" placeholder="your.email@example.com" required
-                value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
             </div>
-            
-            <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-              <input 
-                type="checkbox" 
-                id="admin-request" 
-                checked={form.isAdminRequest} 
-                onChange={e => setForm({...form, isAdminRequest: e.target.checked})} 
-              />
-              <label htmlFor="admin-request" style={{ color: 'rgba(220,231,245,0.8)', fontSize: '0.9rem', cursor: 'pointer' }}>
-                Register as Admin
-              </label>
-            </div>
-
-            {form.isAdminRequest && (
-              <div className="form-group">
-                <label className="form-label">Password</label>
-                <input id="register-password" className="input-field" type="password" placeholder="Enter password for admin access" required
-                  value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
-              </div>
-            )}
 
             <button id="register-submit" type="submit" className="btn-fire" style={{ width: '100%', marginTop: '0.5rem' }} disabled={loading}>
-              {loading ? '🔄 Preparing...' : (form.isAdminRequest ? 'Register Admin' : 'Play Now')}
+              {loading ? '🔄 Preparing...' : 'Play Now'}
             </button>
           </form>
         </div>
