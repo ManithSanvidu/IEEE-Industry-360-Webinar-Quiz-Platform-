@@ -32,59 +32,53 @@ export default function Instructions() {
           <div className="info-card"><div className="info-value">1</div><div className="info-label">Lucky Winner</div></div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', alignItems: 'start', marginBottom: '2rem' }}>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <div className="glass-card">
-              <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1rem', fontSize: '1.3rem' }}>📋 Quiz Format</h2>
-              <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))' }}>
-                <div style={{ padding: '1rem', background: 'rgba(192,38,211,0.1)', borderRadius: '12px', border: '1px solid rgba(192,38,211,0.2)' }}>
-                  <h3 style={{ color: 'var(--main-purple)', marginBottom: '0.5rem' }}>Multiple Choice (7 Questions)</h3>
-                  <ul style={{ listStyle: 'none', fontSize: '0.9rem', color: 'rgba(220,231,245,0.7)' }}>
-                    <li>• 7 out of 10 questions are MCQs</li>
-                    <li>• 4 answer options (A–D) each</li>
-                    <li>• Select ONE best answer</li>
-                    <li>• No negative marking</li>
-                  </ul>
-                </div>
-                <div style={{ padding: '1rem', background: 'rgba(249,115,22,0.1)', borderRadius: '12px', border: '1px solid rgba(249,115,22,0.2)' }}>
-                  <h3 style={{ color: 'var(--fire-orange)', marginBottom: '0.5rem' }}>Short Answer (3 Questions)</h3>
-                  <ul style={{ listStyle: 'none', fontSize: '0.9rem', color: 'rgba(220,231,245,0.7)' }}>
-                    <li>• Brief written answers required</li>
-                    <li>• Keep answers concise</li>
-                    <li>• Based on webinar session</li>
-                    <li>• Clarity and accuracy matter</li>
-                  </ul>
-                </div>
-              </div>
+        <div className="glass-card" style={{ marginBottom: '2rem' }}>
+          <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1rem', fontSize: '1.3rem' }}>📋 Quiz Format</h2>
+          <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))' }}>
+            <div style={{ padding: '1rem', background: 'rgba(192,38,211,0.1)', borderRadius: '12px', border: '1px solid rgba(192,38,211,0.2)' }}>
+              <h3 style={{ color: 'var(--main-purple)', marginBottom: '0.5rem' }}>Multiple Choice (7 Questions)</h3>
+              <ul style={{ listStyle: 'none', fontSize: '0.9rem', color: 'rgba(220,231,245,0.7)' }}>
+                <li>• 7 out of 10 questions are MCQs</li>
+                <li>• 4 answer options (A–D) each</li>
+                <li>• Select ONE best answer</li>
+                <li>• No negative marking</li>
+              </ul>
             </div>
-
-            <div className="glass-card">
-              <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1rem', fontSize: '1.3rem' }}>📊 Question Sequence</h2>
-              <table className="data-table">
-                <thead><tr><th>Q No.</th><th>Type</th><th>Notes</th></tr></thead>
-                <tbody>
-                  <tr><td>Q1 – Q2</td><td style={{ color: 'var(--main-purple)' }}>MCQ</td><td>Opening — topic overview</td></tr>
-                  <tr><td>Q3 – Q5</td><td style={{ color: 'var(--fire-orange)' }}>Short Answer</td><td>Mid-quiz — deeper comprehension</td></tr>
-                  <tr><td>Q6 – Q10</td><td style={{ color: 'var(--main-purple)' }}>MCQ</td><td>Closing — key takeaways</td></tr>
-                </tbody>
-              </table>
+            <div style={{ padding: '1rem', background: 'rgba(249,115,22,0.1)', borderRadius: '12px', border: '1px solid rgba(249,115,22,0.2)' }}>
+              <h3 style={{ color: 'var(--fire-orange)', marginBottom: '0.5rem' }}>Short Answer (3 Questions)</h3>
+              <ul style={{ listStyle: 'none', fontSize: '0.9rem', color: 'rgba(220,231,245,0.7)' }}>
+                <li>• Brief written answers required</li>
+                <li>• Keep answers concise</li>
+                <li>• Based on webinar session</li>
+                <li>• Clarity and accuracy matter</li>
+              </ul>
             </div>
           </div>
+        </div>
 
-          <div className="glass-card" style={{ textAlign: 'center', maxHeight: '550px', overflowY: 'auto' }}>
-            <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1.5rem', fontSize: '1.3rem' }}>📌 Participation Guidelines</h2>
-            {guidelines.map((g, i) => (
-              <div key={i} className="instruction-item" style={{ margin: '0 auto 1rem auto', maxWidth: '400px' }}>
-                <div className="instruction-num">{g.icon}</div>
-                <div>
-                  <h3 style={{ fontSize: '1rem', marginBottom: '0.25rem', color: 'var(--sky-mist)' }}>{g.title}</h3>
-                  <p style={{ fontSize: '0.88rem', color: 'rgba(220,231,245,0.65)', lineHeight: 1.6 }}>{g.desc}</p>
-                </div>
+        <div className="glass-card" style={{ marginBottom: '2rem' }}>
+          <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1rem', fontSize: '1.3rem' }}>📊 Question Sequence</h2>
+          <table className="data-table">
+            <thead><tr><th>Q No.</th><th>Type</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Q1 – Q2</td><td style={{ color: 'var(--main-purple)' }}>MCQ</td><td>Opening — topic overview</td></tr>
+              <tr><td>Q3 – Q5</td><td style={{ color: 'var(--fire-orange)' }}>Short Answer</td><td>Mid-quiz — deeper comprehension</td></tr>
+              <tr><td>Q6 – Q10</td><td style={{ color: 'var(--main-purple)' }}>MCQ</td><td>Closing — key takeaways</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="glass-card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
+          <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1.5rem', fontSize: '1.3rem' }}>📌 Participation Guidelines</h2>
+          {guidelines.map((g, i) => (
+            <div key={i} className="instruction-item">
+              <div className="instruction-num">{g.icon}</div>
+              <div>
+                <h3 style={{ fontSize: '1rem', marginBottom: '0.25rem', color: 'var(--sky-mist)' }}>{g.title}</h3>
+                <p style={{ fontSize: '0.88rem', color: 'rgba(220,231,245,0.65)', lineHeight: 1.6 }}>{g.desc}</p>
               </div>
-            ))}
-          </div>
-
+            </div>
+          ))}
         </div>
 
         <div className="glass-card" style={{ textAlign: 'center', background: 'linear-gradient(135deg, rgba(249,115,22,0.15), rgba(245,185,66,0.1))' }}>
