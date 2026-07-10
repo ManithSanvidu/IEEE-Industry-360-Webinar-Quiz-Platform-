@@ -6,7 +6,7 @@ import DragonBackground from '@/components/DragonBackground';
 import Navbar from '@/components/Navbar';
 
 export default function Register() {
-  const [form, setForm] = useState({ name: '', email: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '', isAdminRequest: false });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,11 @@ export default function Register() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setSuccess(data.message);
-      setTimeout(() => router.push('/instructions'), 1500);
+      if (form.isAdminRequest) {
+        setTimeout(() => router.push('/login'), 1500);
+      } else {
+        setTimeout(() => router.push('/instructions'), 1500);
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -74,8 +78,29 @@ export default function Register() {
               <input id="register-email" className="input-field" type="email" placeholder="your.email@example.com" required
                 value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
             </div>
+            
+            <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+              <input 
+                type="checkbox" 
+                id="admin-request" 
+                checked={form.isAdminRequest} 
+                onChange={e => setForm({...form, isAdminRequest: e.target.checked})} 
+              />
+              <label htmlFor="admin-request" style={{ color: 'rgba(220,231,245,0.8)', fontSize: '0.9rem', cursor: 'pointer' }}>
+                Register as Admin
+              </label>
+            </div>
+
+            {form.isAdminRequest && (
+              <div className="form-group">
+                <label className="form-label">Password</label>
+                <input id="register-password" className="input-field" type="password" placeholder="Enter password for admin access" required
+                  value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
+              </div>
+            )}
+
             <button id="register-submit" type="submit" className="btn-fire" style={{ width: '100%', marginTop: '0.5rem' }} disabled={loading}>
-              {loading ? '🔄 Preparing Quiz...' : ' Play Now'}
+              {loading ? '🔄 Preparing...' : (form.isAdminRequest ? 'Register Admin' : 'Play Now')}
             </button>
           </form>
         </div>
