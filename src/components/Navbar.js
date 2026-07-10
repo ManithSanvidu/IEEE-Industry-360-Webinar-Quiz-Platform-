@@ -9,7 +9,7 @@ export default function Navbar() {
   const router = useRouter();
 
   useEffect(() => {
-    fetch('/api/auth/me').then(r => r.json()).then(d => { if (d.user) setUser(d.user); }).catch(() => {});
+    fetch('/api/auth/me').then(r => r.json()).then(d => { if (d.user) setUser(d.user); }).catch(() => { });
   }, []);
 
   const handleLogout = async () => {
@@ -21,7 +21,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link href="/" className="navbar-brand">
-        <img src="/logo.png" alt="Industry 360 Logo" style={{ height: '40px', objectFit: 'contain' }} />
+        <img src="/logo.jpeg" alt="Industry 360 Logo" style={{ height: '40px', objectFit: 'contain' }} />
       </Link>
       <div className="navbar-links">
         {user ? (
@@ -32,11 +32,7 @@ export default function Navbar() {
             <span style={{ color: 'var(--dragon-gold)', fontSize: '0.85rem' }}>Hi, {user.name}</span>
             <button onClick={handleLogout}>Logout</button>
           </>
-        ) : (
-          <>
-            <Link href="/login">Admin Login</Link>
-          </>
-        )}
+        ) : null}
       </div>
     </nav>
   );
