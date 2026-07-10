@@ -33,6 +33,13 @@ export async function POST(request) {
       );
     }
 
+    if (user.is_admin_pending) {
+      return NextResponse.json(
+        { error: 'Your admin account is pending approval' },
+        { status: 403 }
+      );
+    }
+
     // Generate JWT token
     const token = signToken({
       id: user.id,
