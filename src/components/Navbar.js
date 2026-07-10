@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import logo from '../../public/image1.png';
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -21,7 +22,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link href="/" className="navbar-brand">
-        <img src="/image1.png" alt="Image 1" style={{ height: '40px', objectFit: 'contain' }} />
+        <img src={logo.src} alt="Image 1" style={{ height: '40px', objectFit: 'contain' }} />
       </Link>
       <div className="navbar-links">
         {user ? (
