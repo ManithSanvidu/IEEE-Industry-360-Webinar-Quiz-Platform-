@@ -10,7 +10,7 @@ export const metadata = {
     siteName: 'IEEE Industry 360 Quiz',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.jpeg',
         width: 1200,
         height: 630,
         alt: 'IEEE Industry 360 Webinar Quiz',
@@ -26,9 +26,9 @@ export const metadata = {
     images: ['/og-image.png'],
   },
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: '/logo.jpeg',
+    shortcut: '/logo.jpeg',
+    apple: '/logo.jpeg',
   },
 };
 
