@@ -60,7 +60,7 @@ export default function Login() {
             fontSize: '0.85rem',
             color: 'var(--dragon-gold)'
           }}>
-            ⚠️ Please login with the <strong>same email</strong> you used to register for the webinar.
+            ⚠️ Please login with the <strong>same name and email</strong> you used to register for the giveaway of the webinar.
           </div>
 
           {error && <div className="error-msg">{error}</div>}
@@ -69,12 +69,12 @@ export default function Login() {
             <div className="form-group">
               <label className="form-label">Email Address</label>
               <input id="login-email" className="input-field" type="email" placeholder="your.email@example.com" required
-                value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
             </div>
             <div className="form-group">
               <label className="form-label">Password</label>
               <input id="login-password" className="input-field" type="password" placeholder="Enter your password" required
-                value={form.password} onChange={e => setForm({...form, password: e.target.value})} />
+                value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} />
             </div>
             <button id="login-submit" type="submit" className="btn-fire" style={{ width: '100%', marginTop: '0.5rem' }} disabled={loading}>
               {loading ? '🔄 Logging in...' : 'Login'}
