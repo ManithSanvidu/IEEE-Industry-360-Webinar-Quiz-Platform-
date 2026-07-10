@@ -84,13 +84,12 @@ export default function Instructions() {
         <div className="glass-card" style={{ textAlign: 'center', background: 'linear-gradient(135deg, rgba(249,115,22,0.15), rgba(245,185,66,0.1))' }}>
           <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🏆</div>
           <h2 style={{ color: 'var(--dragon-gold)', fontSize: '1.4rem', marginBottom: '0.5rem' }}>Winner&apos;s Prize</h2>
-          <p style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--fire-orange)', marginBottom: '0.5rem' }}>Rs.4,000 – Rs.5,000</p>
           <p style={{ color: 'rgba(220,231,245,0.7)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
             Exclusive gift box courtesy of our valued Gift Partner. Prize handed over after identity verification post-webinar.
           </p>
           <Link href="/quiz"><button className="btn-fire" style={{ fontSize: '1.1rem', padding: '16px 40px' }}>🔥 Start Quiz Now</button></Link>
           <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'rgba(220,231,245,0.4)' }}>
-            Best of luck! Listen carefully, think quickly, and enjoy the quiz. 
+            Best of luck! Listen carefully, think quickly, and enjoy the quiz.
           </p>
         </div>
       </div>
