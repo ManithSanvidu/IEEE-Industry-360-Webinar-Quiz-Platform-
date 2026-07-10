@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import DragonBackground from '@/components/DragonBackground';
 import Navbar from '@/components/Navbar';
 
@@ -34,6 +35,21 @@ export default function Home() {
             position: 'relative',
           }}
         >
+          {/* Logo */}
+          <div style={{ marginBottom: "1.5rem" }}>
+            <Image
+              src="/image1.png"
+              alt="IEEE Industry 360 Logo"
+              width={140}
+              height={140}
+              priority
+              style={{
+                margin: "0 auto",
+                display: "block",
+              }}
+            />
+          </div>
+
           {/* Pill Badge */}
           <div
             style={{
