@@ -131,7 +131,7 @@ export default function Home() {
                     </button>
                   </Link>
 
-                  <Link href="/quiz">
+                  <Link href="/quiz" style={{ textDecoration: "none" }}>
                     <button
                       className="btn-fire"
                       style={{
@@ -148,7 +148,7 @@ export default function Home() {
                 </>
               ) : (
                 <>
-                  <Link href="/register">
+                  <Link href="/register" style={{ textDecoration: "none" }}>
                     <button
                       className="btn-fire"
                       style={{
