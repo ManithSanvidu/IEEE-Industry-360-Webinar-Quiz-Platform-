@@ -20,7 +20,9 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link href="/" className="navbar-brand">🎓 IEEE Industry 360' Webinar Quiz</Link>
+      <Link href="/" className="navbar-brand">
+        <img src="/logo.png" alt="Industry 360 Logo" style={{ height: '40px', objectFit: 'contain' }} />
+      </Link>
       <div className="navbar-links">
         {user ? (
           <>
