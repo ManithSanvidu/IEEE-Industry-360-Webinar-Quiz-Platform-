@@ -193,7 +193,8 @@ export default function Admin() {
             {results.length === 0 ? (
               <p style={{ color: 'rgba(220,231,245,0.5)', padding: '1rem' }}>No participants yet.</p>
             ) : (
-              <table className="data-table">
+              <div className="table-responsive">
+                <table className="data-table">
                 <thead><tr><th>Name</th><th>Email</th><th>Score</th><th>Time Taken</th><th>Status</th><th>Completed At</th></tr></thead>
                 <tbody>
                   {results.map((r, i) => (
@@ -213,6 +214,7 @@ export default function Admin() {
                   ))}
                 </tbody>
               </table>
+              </div>
             )}
           </div>
         )}
@@ -223,7 +225,8 @@ export default function Admin() {
             {completedResults.length === 0 ? (
               <p style={{ color: 'rgba(220,231,245,0.5)', padding: '1rem' }}>No completions yet.</p>
             ) : (
-              <table className="data-table">
+              <div className="table-responsive">
+                <table className="data-table">
                 <thead><tr><th>Rank</th><th>Name</th><th>Email</th><th>Score</th><th>Time Taken</th></tr></thead>
                 <tbody>
                   {completedResults.sort((a, b) => b.score - a.score || (a.time_taken_seconds || 999) - (b.time_taken_seconds || 999)).map((r, i) => (
@@ -237,6 +240,7 @@ export default function Admin() {
                   ))}
                 </tbody>
               </table>
+              </div>
             )}
           </div>
         )}
@@ -255,7 +259,8 @@ export default function Admin() {
             </form>
 
             <h3 style={{ color: 'var(--sky-mist)', marginBottom: '1rem', marginTop: '1rem' }}>Current Admins</h3>
-            <table className="data-table">
+            <div className="table-responsive">
+              <table className="data-table">
               <thead><tr><th>Name</th><th>Email</th><th>Added</th></tr></thead>
               <tbody>
                 {admins.map((a, i) => (
@@ -266,13 +271,15 @@ export default function Admin() {
                   </tr>
                 ))}
               </tbody>
-            </table>
+              </table>
+            </div>
 
             <h3 style={{ color: 'var(--sky-mist)', marginBottom: '1rem', marginTop: '2rem' }}>Pending Admin Requests</h3>
             {pendingAdmins.length === 0 ? (
               <p style={{ color: 'rgba(220,231,245,0.5)', padding: '1rem' }}>No pending requests.</p>
             ) : (
-              <table className="data-table">
+              <div className="table-responsive">
+                <table className="data-table">
                 <thead><tr><th>Name</th><th>Email</th><th>Requested</th><th>Action</th></tr></thead>
                 <tbody>
                   {pendingAdmins.map((pa, i) => (
@@ -293,6 +300,7 @@ export default function Admin() {
                   ))}
                 </tbody>
               </table>
+              </div>
             )}
           </div>
         )}
