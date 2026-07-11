@@ -139,6 +139,35 @@ export default function Quiz() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [loading, quizCompleted, attemptId, doSubmit]);
 
+  // Prevent copy, cut, right-click, and specific key combinations (Ctrl+C, Ctrl+V, Ctrl+U, F12, Ctrl+Shift+I)
+  useEffect(() => {
+    const handleContext = (e) => e.preventDefault();
+    const handleCopyCut = (e) => e.preventDefault();
+    const handleKeyDown = (e) => {
+      if (
+        (e.ctrlKey && e.key === 'c') ||
+        (e.ctrlKey && e.key === 'v') ||
+        (e.ctrlKey && e.key === 'u') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        e.key === 'F12'
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('contextmenu', handleContext);
+    document.addEventListener('copy', handleCopyCut);
+    document.addEventListener('cut', handleCopyCut);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContext);
+      document.removeEventListener('copy', handleCopyCut);
+      document.removeEventListener('cut', handleCopyCut);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   const formatTime = (s) => {
     const m = Math.floor(s / 60);
     const sec = s % 60;
@@ -232,34 +261,7 @@ export default function Quiz() {
     );
   }
 
-  // Prevent copy, cut, right-click, and specific key combinations (Ctrl+C, Ctrl+U, F12, Ctrl+Shift+I)
-  useEffect(() => {
-    const handleContext = (e) => e.preventDefault();
-    const handleCopyCut = (e) => e.preventDefault();
-    const handleKeyDown = (e) => {
-      if (
-        (e.ctrlKey && e.key === 'c') ||
-        (e.ctrlKey && e.key === 'v') ||
-        (e.ctrlKey && e.key === 'u') ||
-        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-        e.key === 'F12'
-      ) {
-        e.preventDefault();
-      }
-    };
 
-    document.addEventListener('contextmenu', handleContext);
-    document.addEventListener('copy', handleCopyCut);
-    document.addEventListener('cut', handleCopyCut);
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('contextmenu', handleContext);
-      document.removeEventListener('copy', handleCopyCut);
-      document.removeEventListener('cut', handleCopyCut);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
 
   return (
     <>
