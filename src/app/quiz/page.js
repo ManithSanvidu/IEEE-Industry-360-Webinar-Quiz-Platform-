@@ -228,10 +228,10 @@ export default function Quiz() {
     return (
       <><DragonBackground /><Navbar />
         <div className="page-container">
-          <div className="glass-card result-card" style={{ zIndex: 1 }}>
+          <div className="glass-card result-card" style={{ zIndex: 1, textAlign: 'center' }}>
             <div style={{ fontSize: '5rem', marginBottom: '1rem' }}>🎉</div>
             <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '1rem' }}>
-              <span className="fire-text">Quest Complete!</span>
+              <span className="fire-text">Quiz Completed</span>
             </h1>
             <p style={{ fontSize: '1.15rem', color: 'var(--sky-mist)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
               Thank you for participating in the quiz! 🎉
@@ -241,11 +241,12 @@ export default function Quiz() {
               border: '1px solid rgba(249,115,22,0.25)',
               borderRadius: '14px',
               padding: '1.5rem',
-              marginBottom: '1.5rem'
+              marginBottom: '1.5rem',
+              textAlign: 'center'
             }}>
               <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>📢</div>
               <p style={{ color: 'var(--dragon-gold)', fontWeight: 600, fontSize: '1.05rem', marginBottom: '0.5rem' }}>
-                Thank you for submitting , results will be published in whatsapp channel.
+                Thank you for submitting, results will be published in our <a href="https://whatsapp.com/channel/0029VbCOo9jBA1f7TxKftt1S" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--fire-orange)', textDecoration: 'underline' }}>WhatsApp Channel</a>.
               </p>
               <p style={{ color: 'rgba(220,231,245,0.6)', fontSize: '0.9rem', lineHeight: 1.6 }}>
                 The winner will be declared based on the highest score and fastest completion time.
@@ -254,7 +255,31 @@ export default function Quiz() {
             <p style={{ color: 'rgba(220,231,245,0.5)', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
               Your responses have been recorded successfully. Best of luck! 🔥
             </p>
-            <button className="btn-primary" onClick={() => router.push('/')}>🏠 Back to Home</button>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <button className="btn-primary" onClick={() => router.push('/')}>🏠 Back to Home</button>
+              <a 
+                href="https://whatsapp.com/channel/0029VbCOo9jBA1f7TxKftt1S" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ 
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: '#25D366',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '12px',
+                  padding: '12px 24px',
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 12px rgba(37, 211, 102, 0.3)'
+                }}
+              >
+                💬 Join WhatsApp Channel
+              </a>
+            </div>
           </div>
         </div>
       </>
