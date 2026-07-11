@@ -42,7 +42,7 @@ export default function Home() {
               height: '110px',
               width: 'auto',
               display: 'block',
-              margin: '0 auto 2rem auto',
+              margin: '0 auto 0 auto',
               objectFit: 'contain',
             }}
           />
@@ -52,6 +52,7 @@ export default function Home() {
               fontSize: 'clamp(3rem, 7vw, 4.5rem)',
               fontWeight: 700,
               lineHeight: 1.1,
+              marginTop: '0.2rem',
               marginBottom: '1.5rem',
               fontFamily: 'var(--font-serif)',
               color: 'var(--dragon-gold)',
