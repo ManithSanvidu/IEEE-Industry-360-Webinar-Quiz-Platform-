@@ -16,7 +16,7 @@ export async function GET(request) {
       SELECT 
         u.id as user_id,
         u.name,
-        u.email,
+        u.phone,
         qa.id as attempt_id,
         qa.score,
         qa.total_questions,
