@@ -25,7 +25,7 @@ export default function Home() {
       <DragonBackground />
       <Navbar />
 
-      <div className="page-container" style={{ justifyContent: 'flex-start', paddingTop: '10px' }}>
+      <div className="page-container" style={{ justifyContent: 'flex-start', paddingTop: '40px' }}>
         <div
           style={{
             textAlign: 'center',
