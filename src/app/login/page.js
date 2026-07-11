@@ -69,6 +69,7 @@ export default function Login() {
             <div className="form-group">
               <label className="form-label">Phone Number</label>
               <input id="login-phone" className="input-field" type="tel" placeholder="Enter phone number" required
+                pattern="[0-9]{10}" title="Please enter a exactly 10-digit phone number"
                 value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
             </div>
             <div className="form-group">
