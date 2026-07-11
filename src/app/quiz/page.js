@@ -58,52 +58,55 @@ export default function Quiz() {
     }
   }, []);
 
-  // Load quiz
-  useEffect(() => {
-    const loadQuiz = async () => {
-      try {
-        const authRes = await fetch('/api/auth/me');
-        const authData = await authRes.json();
-        if (!authData.user) { router.push('/login'); return; }
-        setUser(authData.user);
+  // Load quiz definition
+  const loadQuiz = useCallback(async () => {
+    try {
+      const authRes = await fetch('/api/auth/me');
+      const authData = await authRes.json();
+      if (!authData.user) { router.push('/login'); return; }
+      setUser(authData.user);
 
-        const quizRes = await fetch('/api/quiz');
-        const quizData = await quizRes.json();
+      const quizRes = await fetch('/api/quiz');
+      const quizData = await quizRes.json();
 
-        if (quizData.notStarted) {
-          setNotStarted(true);
-          setLoading(false);
-          return;
-        }
-
-        if (quizData.completed) {
-          setQuizCompleted(true);
-          setResult({ score: quizData.score, timeTaken: quizData.timeTaken, totalQuestions: 10 });
-          setLoading(false);
-          return;
-        }
-        if (!quizRes.ok) throw new Error(quizData.error);
-
-        setQuestions(quizData.questions);
-        questionsRef.current = quizData.questions;
-        setAttemptId(quizData.attemptId);
-        attemptIdRef.current = quizData.attemptId;
-        setStartedAt(new Date(quizData.startedAt));
-
-        // Calculate remaining time
-        const remaining = Math.max(0, 600 - (quizData.elapsedSeconds || 0));
-        setTimeLeft(remaining);
-        if (remaining <= 0) {
-          doSubmit();
-        }
-      } catch (err) {
-        setError(err.message || 'Failed to load quiz');
-      } finally {
+      if (quizData.notStarted) {
+        setNotStarted(true);
         setLoading(false);
+        return;
       }
-    };
-    loadQuiz();
+
+      if (quizData.completed) {
+        setQuizCompleted(true);
+        setResult({ score: quizData.score, timeTaken: quizData.timeTaken, totalQuestions: 10 });
+        setLoading(false);
+        return;
+      }
+      if (!quizRes.ok) throw new Error(quizData.error);
+
+      setQuestions(quizData.questions);
+      questionsRef.current = quizData.questions;
+      setAttemptId(quizData.attemptId);
+      attemptIdRef.current = quizData.attemptId;
+      setStartedAt(new Date(quizData.startedAt));
+
+      // Calculate remaining time
+      const remaining = Math.max(0, 600 - (quizData.elapsedSeconds || 0));
+      setTimeLeft(remaining);
+      if (remaining <= 0) {
+        doSubmit();
+      }
+      setNotStarted(false);
+    } catch (err) {
+      setError(err.message || 'Failed to load quiz');
+    } finally {
+      setLoading(false);
+    }
   }, [router, doSubmit]);
+
+  // Initial load
+  useEffect(() => {
+    loadQuiz();
+  }, [loadQuiz]);
 
   // Auto-polling when notStarted
   useEffect(() => {
@@ -111,12 +114,14 @@ export default function Quiz() {
     const interval = setInterval(() => {
       fetch('/api/quiz').then(r => r.json()).then(d => {
         if (!d.notStarted && !d.error) {
-          window.location.reload();
+          clearInterval(interval);
+          setLoading(true);
+          loadQuiz();
         }
       }).catch(() => { });
     }, 5000);
     return () => clearInterval(interval);
-  }, [notStarted]);
+  }, [notStarted, loadQuiz]);
 
   // Timer
   useEffect(() => {
@@ -142,7 +147,7 @@ export default function Quiz() {
 
   const timerClass = timeLeft <= 60 ? 'timer-danger' : timeLeft <= 180 ? 'timer-warning' : 'timer-safe';
   const answeredCount = Object.keys(answers).filter(k => answers[k]).length;
-  const progress = questions.length ? (answeredCount / questions.length) * 100 : 0;
+  const progress = questions?.length ? (answeredCount / questions.length) * 100 : 0;
 
   if (loading) {
     return (
@@ -269,13 +274,13 @@ export default function Quiz() {
 
         <div className="progress-container">
           <div className="progress-text">
-            <span>Progress: {answeredCount}/{questions.length}</span>
+            <span>Progress: {answeredCount}/{questions?.length || 0}</span>
             <span>{Math.round(progress)}%</span>
           </div>
           <div className="progress-bar"><div className="progress-fill" style={{ width: `${progress}%` }} /></div>
         </div>
 
-        {questions.length > 0 && (
+        {(questions?.length || 0) > 0 && (
           <div
             className="question-card slide-in-right"
             key={currentIndex}
@@ -297,9 +302,9 @@ export default function Quiz() {
                 flexWrap: 'wrap'
               }}
             >
-              <span className="question-number">Q{questions[currentIndex].id}</span>
+              <span className="question-number">Q{questions[currentIndex]?.id}</span>
               <span className="question-type" style={{ marginLeft: '10px' }}>
-                {questions[currentIndex].type === 'mcq' ? '📝 MCQ' : '✍️ Short Answer'}
+                {questions[currentIndex]?.type === 'mcq' ? '📝 MCQ' : '✍️ Short Answer'}
               </span>
             </div>
             <p
@@ -313,10 +318,10 @@ export default function Quiz() {
                 fontWeight: 600
               }}
             >
-              {questions[currentIndex].question}
+              {questions[currentIndex]?.question}
             </p>
 
-            {questions[currentIndex].options ? (
+            {questions[currentIndex]?.options ? (
               <div
                 style={{
                   display: 'grid',
@@ -339,14 +344,14 @@ export default function Quiz() {
               <div style={{ maxWidth: '600px', margin: '0 auto' }}>
                 <input className="short-answer-input" type="text" placeholder="Type your answer here..."
                   style={{ textAlign: 'center', width: '100%' }}
-                  value={answers[questions[currentIndex].id] || ''}
+                  value={answers[questions[currentIndex]?.id] || ''}
                   onChange={e => setAnswers({ ...answers, [questions[currentIndex].id]: e.target.value })} />
               </div>
             )}
 
             <div className="quiz-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
               <p style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.5)' }}>
-                Answered {answeredCount} of {questions.length}
+                Answered {answeredCount} of {questions?.length || 0}
               </p>
               <div>
                 {currentIndex > 0 && (
@@ -358,7 +363,7 @@ export default function Quiz() {
                     ⬅️ Previous
                   </button>
                 )}
-                {currentIndex < questions.length - 1 ? (
+                {currentIndex < (questions?.length || 0) - 1 ? (
                   <button
                     className="btn-primary"
                     style={{ padding: '12px 24px' }}
