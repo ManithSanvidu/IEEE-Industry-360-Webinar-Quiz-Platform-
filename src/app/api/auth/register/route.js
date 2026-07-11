@@ -6,11 +6,20 @@ import bcrypt from 'bcryptjs';
 export async function POST(request) {
   try {
     await ensureDbInitialized();
-    const { name, email, password, isAdminRequest } = await request.json();
+    let { name, phone, password, isAdminRequest } = await request.json();
 
-    if (!name || !email) {
+    if (!name || !phone) {
       return NextResponse.json(
-        { error: 'Name and email are required' },
+        { error: 'Name and phone number are required' },
+        { status: 400 }
+      );
+    }
+    
+    phone = String(phone).trim().replace(/[\s-]/g, '');
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      return NextResponse.json(
+        { error: 'Phone number must be exactly 10 digits' },
         { status: 400 }
       );
     }
@@ -23,7 +32,7 @@ export async function POST(request) {
     }
 
     // Check if user already exists
-    let users = await sql`SELECT * FROM users WHERE email = ${email.toLowerCase()}`;
+    let users = await sql`SELECT * FROM users WHERE phone = ${phone}`;
     let user;
 
     if (users.length > 0) {
@@ -42,9 +51,9 @@ export async function POST(request) {
       }
 
       const result = await sql`
-        INSERT INTO users (name, email, password, is_admin_pending)
-        VALUES (${name}, ${email.toLowerCase()}, ${hashedPassword}, ${is_admin_pending})
-        RETURNING id, name, email, is_admin, is_admin_pending
+        INSERT INTO users (name, phone, password, is_admin_pending)
+        VALUES (${name}, ${phone}, ${hashedPassword}, ${is_admin_pending})
+        RETURNING id, name, phone, is_admin, is_admin_pending
       `;
       user = result[0];
     }
@@ -53,7 +62,7 @@ export async function POST(request) {
     const token = signToken({
       id: user.id,
       name: user.name,
-      email: user.email,
+      phone: user.phone,
       is_admin: user.is_admin
     });
 
@@ -63,7 +72,7 @@ export async function POST(request) {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email,
+        phone: user.phone,
         is_admin: user.is_admin
       }
     });

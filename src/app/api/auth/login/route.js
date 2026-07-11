@@ -6,20 +6,29 @@ import { signToken } from '@/lib/auth';
 export async function POST(request) {
   try {
     await ensureDbInitialized();
-    const { email, password } = await request.json();
+    let { phone, password } = await request.json();
 
-    if (!email || !password) {
+    if (!phone || !password) {
       return NextResponse.json(
-        { error: 'Email and password are required' },
+        { error: 'Phone number and password are required' },
+        { status: 400 }
+      );
+    }
+
+    phone = String(phone).trim().replace(/[\s-]/g, '');
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      return NextResponse.json(
+        { error: 'Phone number must be exactly 10 digits' },
         { status: 400 }
       );
     }
 
     // Find user
-    const users = await sql`SELECT * FROM users WHERE email = ${email.toLowerCase()}`;
+    const users = await sql`SELECT * FROM users WHERE phone = ${phone}`;
     if (users.length === 0) {
       return NextResponse.json(
-        { error: 'Invalid email or password' },
+        { error: 'Invalid phone number or password' },
         { status: 401 }
       );
     }
@@ -28,7 +37,7 @@ export async function POST(request) {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return NextResponse.json(
-        { error: 'Invalid email or password' },
+        { error: 'Invalid phone number or password' },
         { status: 401 }
       );
     }
@@ -44,7 +53,7 @@ export async function POST(request) {
     const token = signToken({
       id: user.id,
       name: user.name,
-      email: user.email,
+      phone: user.phone,
       is_admin: user.is_admin
     });
 
@@ -54,7 +63,7 @@ export async function POST(request) {
       user: {
         id: user.id,
         name: user.name,
-        email: user.email,
+        phone: user.phone,
         is_admin: user.is_admin
       }
     });
