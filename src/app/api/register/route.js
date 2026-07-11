@@ -15,6 +15,14 @@ export async function POST(request) {
       );
     }
     
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      return NextResponse.json(
+        { error: 'Phone number must be exactly 10 digits' },
+        { status: 400 }
+      );
+    }
+    
     if (isAdminRequest && !password) {
       return NextResponse.json(
         { error: 'Password is required for admin registration' },
