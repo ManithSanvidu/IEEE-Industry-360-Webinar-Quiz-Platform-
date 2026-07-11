@@ -227,6 +227,35 @@ export default function Quiz() {
     );
   }
 
+  // Prevent copy, cut, right-click, and specific key combinations (Ctrl+C, Ctrl+U, F12, Ctrl+Shift+I)
+  useEffect(() => {
+    const handleContext = (e) => e.preventDefault();
+    const handleCopyCut = (e) => e.preventDefault();
+    const handleKeyDown = (e) => {
+      if (
+        (e.ctrlKey && e.key === 'c') ||
+        (e.ctrlKey && e.key === 'v') ||
+        (e.ctrlKey && e.key === 'u') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        e.key === 'F12'
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('contextmenu', handleContext);
+    document.addEventListener('copy', handleCopyCut);
+    document.addEventListener('cut', handleCopyCut);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleContext);
+      document.removeEventListener('copy', handleCopyCut);
+      document.removeEventListener('cut', handleCopyCut);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
     <>
       <DragonBackground />
@@ -315,7 +344,7 @@ export default function Quiz() {
               </div>
             )}
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
+            <div className="quiz-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
               <p style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.5)' }}>
                 Answered {answeredCount} of {questions.length}
               </p>
