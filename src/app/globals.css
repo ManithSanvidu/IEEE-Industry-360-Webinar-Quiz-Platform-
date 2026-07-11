@@ -343,11 +343,9 @@ h1, h2, h3, h4, h5, h6, .serif-text {
 }
 
 .option-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  display: block;
   width: 100%;
+  text-align: left;
   padding: 16px 20px;
   margin-bottom: 0.8rem;
   background: rgba(10,17,24,0.6);

@@ -314,13 +314,8 @@ export default function Quiz() {
             style={{
               animation: 'slideInRight 0.4s ease-out forwards',
               opacity: 0,
-              width: '100%',
-              maxWidth: '950px',
+              maxWidth: '900px',
               margin: '0 auto',
-              padding: '2.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
               textAlign: 'center'
             }}
           >
@@ -335,17 +330,19 @@ export default function Quiz() {
               }}
             >
               <span className="question-number">Q{questions[currentIndex]?.id}</span>
+              <span className="question-type" style={{ marginLeft: '10px' }}>
+                {questions[currentIndex]?.type === 'mcq' ? '📝 MCQ' : '✍️ Short Answer'}
+              </span>
             </div>
             <p
               className="question-text"
               style={{
-                width: '100%',
-                maxWidth: '800px',
+                maxWidth: '750px',
                 margin: '0 auto 2rem',
                 textAlign: 'center',
-                fontSize: '1.45rem',
-                lineHeight: '1.8',
-                fontWeight: 600,
+                fontSize: '1.4rem',
+                lineHeight: '1.7',
+                fontWeight: 600
               }}
             >
               {questions[currentIndex]?.question}
@@ -355,11 +352,9 @@ export default function Quiz() {
               <div
                 style={{
                   display: 'grid',
-                  gap: '14px',
-                  width: '100%',
-                  maxWidth: '650px',
-                  margin: '0 auto',
-                  justifyContent: 'center',
+                  gap: '12px',
+                  maxWidth: '700px',
+                  margin: '0 auto'
                 }}
               >
                 {questions[currentIndex].options.map((opt, oi) => (
@@ -373,15 +368,7 @@ export default function Quiz() {
                 ))}
               </div>
             ) : (
-              <div
-                style={{
-                  width: '100%',
-                  maxWidth: '650px',
-                  margin: '0 auto',
-                  display: 'flex',
-                  justifyContent: 'center',
-                }}
-              >
+              <div style={{ maxWidth: '600px', margin: '0 auto' }}>
                 <input className="short-answer-input" type="text" placeholder="Type your answer here..."
                   style={{ textAlign: 'center', width: '100%' }}
                   value={answers[questions[currentIndex]?.id] || ''}
@@ -389,7 +376,7 @@ export default function Quiz() {
               </div>
             )}
 
-            <div className="quiz-footer" style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
+            <div className="quiz-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
               <p style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.5)' }}>
                 Answered {answeredCount} of {questions?.length || 0}
               </p>
