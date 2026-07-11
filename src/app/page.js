@@ -34,24 +34,18 @@ export default function Home() {
             position: 'relative',
           }}
         >
-          {/* Pill Badge */}
-          <div
+          {/* Logo Image */}
+          <img
+            src="/image1.png"
+            alt="IEEE Industry 360 Logo"
             style={{
-              display: 'inline-block',
-              border: '1px solid rgba(245, 192, 91, 0.3)',
-              background: 'rgba(245, 192, 91, 0.05)',
-              padding: '6px 16px',
-              borderRadius: '20px',
-              color: 'var(--dragon-gold)',
-              fontSize: '0.75rem',
-              fontWeight: '700',
-              letterSpacing: '1.5px',
-              textTransform: 'uppercase',
-              marginBottom: '1.5rem',
+              height: '110px',
+              width: 'auto',
+              display: 'block',
+              margin: '0 auto 2rem auto',
+              objectFit: 'contain',
             }}
-          >
-            ✧ Industry 360 Live ✧
-          </div>
+          />
 
           <h1
             style={{
