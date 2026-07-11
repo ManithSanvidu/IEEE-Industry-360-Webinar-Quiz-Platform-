@@ -71,7 +71,7 @@ export default function Home() {
           {/* Organized By Image */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
             <img
-              src="/organize.jpeg"
+              src="/organize2.png"
               alt="Organized By"
               style={{
                 maxWidth: '100%',
