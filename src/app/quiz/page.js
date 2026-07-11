@@ -330,9 +330,6 @@ export default function Quiz() {
               }}
             >
               <span className="question-number">Q{questions[currentIndex]?.id}</span>
-              <span className="question-type" style={{ marginLeft: '10px' }}>
-                {questions[currentIndex]?.type === 'mcq' ? '📝 MCQ' : '✍️ Short Answer'}
-              </span>
             </div>
             <p
               className="question-text"
