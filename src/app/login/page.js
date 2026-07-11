@@ -6,7 +6,7 @@ import DragonBackground from '@/components/DragonBackground';
 import Navbar from '@/components/Navbar';
 
 export default function Login() {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ phone: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -60,16 +60,16 @@ export default function Login() {
             fontSize: '0.85rem',
             color: 'var(--dragon-gold)'
           }}>
-            ⚠️ Please login with the <strong>same name and email</strong> you used to register for the giveaway of the webinar.
+            ⚠️ Please login with the <strong>same name and phone number</strong> you used to register for the giveaway of the webinar.
           </div>
 
           {error && <div className="error-msg">{error}</div>}
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label className="form-label">Email Address</label>
-              <input id="login-email" className="input-field" type="email" placeholder="your.email@example.com" required
-                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+              <label className="form-label">Phone Number</label>
+              <input id="login-phone" className="input-field" type="tel" placeholder="Enter phone number" required
+                value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
             </div>
             <div className="form-group">
               <label className="form-label">Password</label>

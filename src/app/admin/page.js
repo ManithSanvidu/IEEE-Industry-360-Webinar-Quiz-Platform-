@@ -11,7 +11,7 @@ export default function Admin() {
   const [pendingAdmins, setPendingAdmins] = useState([]);
   const [stats, setStats] = useState({ totalUsers: 0, completedQuizzes: 0 });
   const [loading, setLoading] = useState(true);
-  const [adminEmail, setAdminEmail] = useState('');
+  const [adminPhone, setAdminPhone] = useState('');
   const [msg, setMsg] = useState({ type: '', text: '' });
   const [isQuizActive, setIsQuizActive] = useState(false);
   const router = useRouter();
@@ -52,25 +52,25 @@ export default function Admin() {
       const res = await fetch('/api/admin/manage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: adminEmail })
+        body: JSON.stringify({ phone: adminPhone })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setMsg({ type: 'success', text: data.message });
-      setAdminEmail('');
+      setAdminPhone('');
       const adminData = await fetch('/api/admin/manage').then(r => r.json());
       if (adminData.admins) setAdmins(adminData.admins);
       if (adminData.pendingAdmins) setPendingAdmins(adminData.pendingAdmins);
     } catch (err) { setMsg({ type: 'error', text: err.message }); }
   };
 
-  const approveAdmin = async (email) => {
+  const approveAdmin = async (phone) => {
     setMsg({ type: '', text: '' });
     try {
       const res = await fetch('/api/admin/manage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ phone })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
@@ -195,12 +195,12 @@ export default function Admin() {
             ) : (
               <div className="table-responsive">
                 <table className="data-table">
-                <thead><tr><th>Name</th><th>Email</th><th>Score</th><th>Time Taken</th><th>Status</th><th>Completed At</th></tr></thead>
+                <thead><tr><th>Name</th><th>Phone Number</th><th>Score</th><th>Time Taken</th><th>Status</th><th>Completed At</th></tr></thead>
                 <tbody>
                   {results.map((r, i) => (
                     <tr key={i}>
                       <td style={{ fontWeight: 600 }}>{r.name}</td>
-                      <td style={{ color: 'rgba(220,231,245,0.6)', fontSize: '0.85rem' }}>{r.email}</td>
+                      <td style={{ color: 'rgba(220,231,245,0.6)', fontSize: '0.85rem' }}>{r.phone}</td>
                       <td>{r.score !== null ? <span style={{ color: 'var(--fire-orange)', fontWeight: 700 }}>{r.score}/10</span> : '--'}</td>
                       <td style={{ color: 'var(--dragon-gold)', fontWeight: 600 }}>{formatTime(r.time_taken_seconds)}</td>
                       <td>{r.is_completed ?
@@ -227,13 +227,13 @@ export default function Admin() {
             ) : (
               <div className="table-responsive">
                 <table className="data-table">
-                <thead><tr><th>Rank</th><th>Name</th><th>Email</th><th>Score</th><th>Time Taken</th></tr></thead>
+                <thead><tr><th>Rank</th><th>Name</th><th>Phone Number</th><th>Score</th><th>Time Taken</th></tr></thead>
                 <tbody>
                   {completedResults.sort((a, b) => b.score - a.score || (a.time_taken_seconds || 999) - (b.time_taken_seconds || 999)).map((r, i) => (
                     <tr key={i} style={i === 0 ? { background: 'rgba(255,215,0,0.05)' } : {}}>
                       <td><span className={`rank-badge ${i < 3 ? `rank-${i + 1}` : ''}`} style={i >= 3 ? { background: 'rgba(220,231,245,0.1)' } : {}}>{i < 3 ? ['🥇','🥈','🥉'][i] : i + 1}</span></td>
                       <td style={{ fontWeight: i === 0 ? 700 : 400, color: i === 0 ? 'var(--dragon-gold)' : 'var(--sky-mist)' }}>{r.name}</td>
-                      <td style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.6)' }}>{r.email}</td>
+                      <td style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.6)' }}>{r.phone}</td>
                       <td><span style={{ color: 'var(--fire-orange)', fontWeight: 700 }}>{r.score}/10</span></td>
                       <td style={{ color: 'var(--dragon-gold)', fontWeight: 600 }}>{formatTime(r.time_taken_seconds)}</td>
                     </tr>
@@ -248,25 +248,25 @@ export default function Admin() {
         {tab === 'admins' && (
           <div className="glass-card" style={{ padding: '1.5rem' }}>
             <h2 style={{ color: 'var(--dragon-gold)', marginBottom: '1rem' }}>👑 Admin Management</h2>
-            <p style={{ color: 'rgba(220,231,245,0.6)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Appoint new admins by entering their registered email address.</p>
+            <p style={{ color: 'rgba(220,231,245,0.6)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Appoint new admins by entering their registered phone number.</p>
             
             {msg.text && <div className={msg.type === 'error' ? 'error-msg' : 'success-msg'}>{msg.text}</div>}
 
             <form onSubmit={makeAdmin} className="admin-form">
-              <input className="input-field" type="email" placeholder="Enter user's email to make admin" required
-                value={adminEmail} onChange={e => setAdminEmail(e.target.value)} />
+              <input className="input-field" type="tel" placeholder="Enter user's phone number to make admin" required
+                value={adminPhone} onChange={e => setAdminPhone(e.target.value)} />
               <button type="submit" className="btn-primary">👑 Make Admin</button>
             </form>
 
             <h3 style={{ color: 'var(--sky-mist)', marginBottom: '1rem', marginTop: '1rem' }}>Current Admins</h3>
             <div className="table-responsive">
               <table className="data-table">
-              <thead><tr><th>Name</th><th>Email</th><th>Added</th></tr></thead>
+              <thead><tr><th>Name</th><th>Phone Number</th><th>Added</th></tr></thead>
               <tbody>
                 {admins.map((a, i) => (
                   <tr key={i}>
                     <td style={{ fontWeight: 600 }}>{a.name}</td>
-                    <td style={{ color: 'rgba(220,231,245,0.6)' }}>{a.email}</td>
+                    <td style={{ color: 'rgba(220,231,245,0.6)' }}>{a.phone}</td>
                     <td style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.5)' }}>{new Date(a.created_at).toLocaleDateString()}</td>
                   </tr>
                 ))}
@@ -280,18 +280,18 @@ export default function Admin() {
             ) : (
               <div className="table-responsive">
                 <table className="data-table">
-                <thead><tr><th>Name</th><th>Email</th><th>Requested</th><th>Action</th></tr></thead>
+                <thead><tr><th>Name</th><th>Phone Number</th><th>Requested</th><th>Action</th></tr></thead>
                 <tbody>
                   {pendingAdmins.map((pa, i) => (
                     <tr key={i}>
                       <td style={{ fontWeight: 600 }}>{pa.name}</td>
-                      <td style={{ color: 'rgba(220,231,245,0.6)' }}>{pa.email}</td>
+                      <td style={{ color: 'rgba(220,231,245,0.6)' }}>{pa.phone}</td>
                       <td style={{ fontSize: '0.85rem', color: 'rgba(220,231,245,0.5)' }}>{new Date(pa.created_at).toLocaleDateString()}</td>
                       <td>
                         <button 
                           className="btn-primary" 
                           style={{ padding: '6px 12px', fontSize: '0.8rem' }}
-                          onClick={() => approveAdmin(pa.email)}
+                          onClick={() => approveAdmin(pa.phone)}
                         >
                           Approve
                         </button>

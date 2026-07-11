@@ -6,7 +6,7 @@ import DragonBackground from '@/components/DragonBackground';
 import Navbar from '@/components/Navbar';
 
 export default function Register() {
-  const [form, setForm] = useState({ name: '', email: '', password: '', isAdminRequest: false });
+  const [form, setForm] = useState({ name: '', phone: '', password: '', isAdminRequest: false });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ export default function Register() {
               <span className="fire-text">Participant Details</span>
             </h1>
             <p style={{ color: 'rgba(220,231,245,0.6)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
-              Enter your name and email to play the quiz
+              Enter your name and phone number to play the quiz
             </p>
           </div>
 
@@ -61,7 +61,7 @@ export default function Register() {
             fontSize: '0.85rem',
             color: 'var(--dragon-gold)'
           }}>
-            ⚠️ Please register with the <strong>same name and email</strong> you used to register for the giveaway of the webinar.
+            ⚠️ Please register with the <strong>same name and phone number</strong> you used to register for the giveaway of the webinar.
           </div>
 
           {error && <div className="error-msg">{error}</div>}
@@ -74,9 +74,9 @@ export default function Register() {
                 value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
             </div>
             <div className="form-group">
-              <label className="form-label">Email Address</label>
-              <input id="register-email" className="input-field" type="email" placeholder="your.email@example.com" required
-                value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+              <label className="form-label">Phone Number</label>
+              <input id="register-phone" className="input-field" type="tel" placeholder="Enter phone number" required
+                value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
             </div>
 
             <button id="register-submit" type="submit" className="btn-fire" style={{ width: '100%', marginTop: '0.5rem' }} disabled={loading}>
