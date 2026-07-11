@@ -641,6 +641,7 @@ h1, h2, h3, h4, h5, h6, .serif-text {
     display: block;
   }
   .navbar-links {
+    display: none;
     position: fixed;
     top: 60px;
     left: 0;
@@ -652,7 +653,7 @@ h1, h2, h3, h4, h5, h6, .serif-text {
     gap: 1.5rem;
     transform: translateY(-150%);
     transition: transform 0.3s ease-in-out;
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: none; /* Removed border to prevent random line */
     z-index: 99;
   }
   .navbar-links.mobile-open {
