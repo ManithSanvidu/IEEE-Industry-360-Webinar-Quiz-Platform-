@@ -68,20 +68,25 @@ export default function Home() {
             </span>
           </h1>
 
-          {/* Organized By Image */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
-            <img
-              src="/organize2.png"
-              alt="Organized By"
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                maxHeight: '120px',
-                objectFit: 'contain',
-                borderRadius: '8px',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
-              }}
-            />
+          {/* Organized By Text */}
+          <div style={{ 
+              marginBottom: '2.5rem', 
+              fontFamily: 'var(--font-serif)',
+              color: 'white',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              fontWeight: 700,
+              lineHeight: 1.4,
+            }}>
+            <div style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)', marginBottom: '0.5rem' }}>
+              ORGANISED BY :
+            </div>
+            <div style={{ fontSize: 'clamp(1.2rem, 4vw, 1.8rem)', marginBottom: '0.2rem' }}>
+              INDUSTRY APPLICATION SOCIETY
+            </div>
+            <div style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}>
+              STUDENT CHAPTER SBC OF SLIIT
+            </div>
           </div>
 
           <div className="info-grid" style={{ marginBottom: '2.5rem' }}>
