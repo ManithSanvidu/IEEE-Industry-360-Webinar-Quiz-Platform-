@@ -3,10 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import logo from '../../public/image1.png';
+
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,37 +18,25 @@ export default function Navbar() {
     await fetch('/api/auth/logout', { method: 'POST' });
     setUser(null);
     router.push('/');
+    setIsMobileMenuOpen(false);
   };
 
+  const closeMenu = () => setIsMobileMenuOpen(false);
+
   return (
-    <nav className="navbar">
-      <Link
-        href="/"
-        className="navbar-brand"
-        style={{
-          display: "inline-block",
-          overflow: "hidden",
-          height: "60px",
-          width: "180px",
-        }}
+    <nav className="navbar" style={{ justifyContent: 'flex-end' }}>
+      <button 
+        className="mobile-menu-btn" 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       >
-        <img
-          src={logo.src}
-          alt="IEEE Industry 360 Logo"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            transform: "scale(0.9)", // Zoom out
-          }}
-        />
-      </Link>
-      <div className="navbar-links">
+        {isMobileMenuOpen ? '✖' : '☰'}
+      </button>
+      <div className={`navbar-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         {user ? (
           <>
-            <Link href="/instructions">📜 Guidelines</Link>
-            {user.is_admin && <Link href="/leaderboard">🏆 Leaderboard</Link>}
-            {user.is_admin && <Link href="/admin">⚡ Admin</Link>}
+            <Link href="/instructions" onClick={closeMenu}>📜 Guidelines</Link>
+            {user.is_admin && <Link href="/leaderboard" onClick={closeMenu}>🏆 Leaderboard</Link>}
+            {user.is_admin && <Link href="/admin" onClick={closeMenu}>⚡ Admin</Link>}
             <span style={{ color: 'var(--dragon-gold)', fontSize: '0.85rem' }}>Hi, {user.name}</span>
             <button onClick={handleLogout}>Logout</button>
           </>
