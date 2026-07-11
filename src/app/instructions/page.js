@@ -148,18 +148,13 @@ export default function Instructions() {
 
               <tbody>
                 <tr>
-                  <td>Q1–Q2</td>
+                  <td>Q1–Q7</td>
                   <td style={{ color: "var(--main-purple)" }}>MCQ</td>
                 </tr>
 
                 <tr>
-                  <td>Q3–Q5</td>
+                  <td>Q8–Q10</td>
                   <td style={{ color: "var(--fire-orange)" }}>Short</td>
-                </tr>
-
-                <tr>
-                  <td>Q6–Q10</td>
-                  <td style={{ color: "var(--main-purple)" }}>MCQ</td>
                 </tr>
               </tbody>
             </table>
