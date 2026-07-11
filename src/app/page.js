@@ -39,7 +39,7 @@ export default function Home() {
             src="/image1.png"
             alt="IEEE Industry 360 Logo"
             style={{
-              height: '110px',
+              height: '50px',
               width: 'auto',
               display: 'block',
               margin: '0 auto 0 auto',
