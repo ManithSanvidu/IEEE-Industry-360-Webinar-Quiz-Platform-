@@ -61,27 +61,28 @@ export default function Home() {
             }}
           >
             <span style={{ display: 'block', marginBottom: '0.2rem' }}>
-              IEEE Industry 360 Live
+              Industry 360 Live
             </span>
             <span style={{ display: 'block', fontSize: 'clamp(2.5rem, 6vw, 3.8rem)', marginBottom: '0.5rem' }}>
               Webinar Quiz
             </span>
           </h1>
 
-          <p
-            style={{
-              fontSize: '1.1rem',
-              color: 'rgba(226,232,240,0.8)',
-              marginBottom: '2.5rem',
-              lineHeight: 1.6,
-              maxWidth: '600px',
-              margin: '0 auto 2.5rem auto',
-            }}
-          >
-            Test your knowledge from today's IEEE Industry 360 Live webinar.
-            Answer 10 questions within 10 minutes. The participant with the
-            highest score and fastest completion time will be selected as the winner.
-          </p>
+          {/* Organized By Image */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
+            <img
+              src="/organize.jpeg"
+              alt="Organized By"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                maxHeight: '120px',
+                objectFit: 'contain',
+                borderRadius: '8px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
+              }}
+            />
+          </div>
 
           <div className="info-grid" style={{ marginBottom: '2.5rem' }}>
             <div className="info-card">
