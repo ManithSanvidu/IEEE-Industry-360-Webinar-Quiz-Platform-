@@ -25,12 +25,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar" style={{ justifyContent: 'flex-end' }}>
-      <button 
-        className="mobile-menu-btn" 
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      >
-        {isMobileMenuOpen ? '✖' : '☰'}
-      </button>
+
       <div className={`navbar-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         {user ? (
           <>
