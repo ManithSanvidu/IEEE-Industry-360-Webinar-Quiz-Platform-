@@ -1,7 +1,6 @@
 export const quizQuestions = [
   {
     id: 1,
-    type: 'mcq',
     question: 'Which stage of the Software Development Life Cycle (SDLC) is experiencing one of the biggest impacts from AI?',
     options: [
       'Deployment',
@@ -14,7 +13,6 @@ export const quizQuestions = [
   },
   {
     id: 2,
-    type: 'mcq',
     question: 'In a real enterprise environment, AI coding tools mainly improve productivity by:',
     options: [
       'Replacing senior developers',
@@ -27,7 +25,6 @@ export const quizQuestions = [
   },
   {
     id: 3,
-    type: 'short',
     question: 'As AI becomes more common in software development, the role of a Software Engineer is shifting toward:',
     options: [
       'Writing only boilerplate code',
@@ -40,7 +37,6 @@ export const quizQuestions = [
   },
   {
     id: 4,
-    type: 'short',
     question: 'If AI generates code based on strict specifications, the role of Quality Assurance (QA) becomes:',
     options: [
       'Less important',
@@ -53,7 +49,6 @@ export const quizQuestions = [
   },
   {
     id: 5,
-    type: 'short',
     question: 'Which emerging skill should students focus on to remain competitive in an AI-driven future?',
     options: [
       'Memorizing programming syntax',
@@ -66,7 +61,6 @@ export const quizQuestions = [
   },
   {
     id: 6,
-    type: 'mcq',
     question: 'Which AI-powered tool is commonly used to assist developers with coding?',
     options: [
       'Microsoft Word',
@@ -79,7 +73,6 @@ export const quizQuestions = [
   },
   {
     id: 7,
-    type: 'mcq',
     question: 'What is the best way for students to use AI in their learning?',
     options: [
       'Copy AI-generated answers directly',
@@ -92,7 +85,6 @@ export const quizQuestions = [
   },
   {
     id: 8,
-    type: 'short',
     question: 'What competency is considered more important than mastering a single technology in an AI-driven industry?',
     correctAnswer: 'Continuous learning',
     acceptableAnswers: ['continuous learning', 'continuous improvement', 'adaptability', 'lifelong learning'],
@@ -100,7 +92,6 @@ export const quizQuestions = [
   },
   {
     id: 9,
-    type: 'short',
     question: 'What should Software Engineers focus on instead of routine coding as AI becomes more capable?',
     correctAnswer: 'Problem-solving',
     acceptableAnswers: ['problem solving', 'problem-solving', 'critical thinking', 'higher-level problem solving'],
@@ -108,7 +99,6 @@ export const quizQuestions = [
   },
   {
     id: 10,
-    type: 'short',
     question: 'What mindset replaces the traditional "developer-first" mindset in AI-assisted software development?',
     correctAnswer: 'AI-assisted development',
     acceptableAnswers: ['ai-assisted development', 'ai assisted development', 'ai-first', 'ai assisted'],
