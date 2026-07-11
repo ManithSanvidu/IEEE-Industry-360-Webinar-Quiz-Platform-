@@ -11,17 +11,25 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
     }
 
-    const { email } = await request.json();
+    const { phone } = await request.json();
 
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+    if (!phone) {
+      return NextResponse.json({ error: 'Phone number is required' }, { status: 400 });
     }
 
-    // Find user by email
-    const users = await sql`SELECT id, name, email, is_admin, is_admin_pending FROM users WHERE email = ${email.toLowerCase()}`;
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      return NextResponse.json(
+        { error: 'Phone number must be exactly 10 digits' },
+        { status: 400 }
+      );
+    }
+
+    // Find user by phone
+    const users = await sql`SELECT id, name, phone, is_admin, is_admin_pending FROM users WHERE phone = ${phone}`;
     if (users.length === 0) {
       return NextResponse.json(
-        { error: 'User not found with this email' },
+        { error: 'User not found with this phone number' },
         { status: 404 }
       );
     }
@@ -34,7 +42,7 @@ export async function POST(request) {
     }
 
     // Make user admin
-    await sql`UPDATE users SET is_admin = TRUE, is_admin_pending = FALSE WHERE email = ${email.toLowerCase()}`;
+    await sql`UPDATE users SET is_admin = TRUE, is_admin_pending = FALSE WHERE phone = ${phone}`;
 
     return NextResponse.json({
       message: `${users[0].name} has been made an admin`,
@@ -59,11 +67,11 @@ export async function GET(request) {
     }
 
     const admins = await sql`
-      SELECT id, name, email, created_at FROM users WHERE is_admin = TRUE ORDER BY created_at ASC
+      SELECT id, name, phone, created_at FROM users WHERE is_admin = TRUE ORDER BY created_at ASC
     `;
     
     const pendingAdmins = await sql`
-      SELECT id, name, email, created_at FROM users WHERE is_admin_pending = TRUE AND is_admin = FALSE ORDER BY created_at ASC
+      SELECT id, name, phone, created_at FROM users WHERE is_admin_pending = TRUE AND is_admin = FALSE ORDER BY created_at ASC
     `;
 
     return NextResponse.json({ admins, pendingAdmins });
