@@ -290,7 +290,16 @@ h1, h2, h3, h4, h5, h6, .serif-text {
 .timer-safe { color: var(--dragon-gold); }
 
 /* Quiz styles */
-.quiz-container { max-width: 800px; width: 100%; margin-top: 100px; padding-bottom: 2rem; }
+.quiz-container {
+  max-width: 800px;
+  width: 100%;
+  margin-top: 100px;
+  padding-bottom: 2rem;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 .question-card {
   background: var(--glass);
   backdrop-filter: blur(20px);
@@ -368,6 +377,10 @@ h1, h2, h3, h4, h5, h6, .serif-text {
   font-size: 1rem;
   outline: none;
   transition: border-color 0.3s;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
 }
 .short-answer-input:focus { border-color: var(--dragon-gold); box-shadow: 0 0 10px rgba(245,192,91,0.2); }
 
