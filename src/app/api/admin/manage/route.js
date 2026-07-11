@@ -11,12 +11,13 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
     }
 
-    const { phone } = await request.json();
+    let { phone } = await request.json();
 
     if (!phone) {
       return NextResponse.json({ error: 'Phone number is required' }, { status: 400 });
     }
 
+    phone = String(phone).trim().replace(/[\s-]/g, '');
     const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(phone)) {
       return NextResponse.json(
