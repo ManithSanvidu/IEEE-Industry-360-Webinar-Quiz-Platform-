@@ -293,7 +293,7 @@ h1, h2, h3, h4, h5, h6, .serif-text {
 .quiz-container {
   max-width: 800px;
   width: 100%;
-  margin-top: 100px;
+  margin: 100px auto 0 auto;
   padding-bottom: 2rem;
   user-select: none;
   -webkit-user-select: none;
@@ -628,7 +628,7 @@ h1, h2, h3, h4, h5, h6, .serif-text {
 
 @media (max-width: 768px) {
   .glass-card { padding: 1.5rem; }
-  .quiz-container { margin-top: 90px; padding: 0 1rem 2rem; }
+  .quiz-container { margin: 90px auto 0 auto; padding: 0 1rem 2rem; }
   .admin-container { padding: 1rem; margin-top: 70px; }
   .data-table { font-size: 0.8rem; }
   .data-table th, .data-table td { padding: 8px 10px; white-space: nowrap; }
